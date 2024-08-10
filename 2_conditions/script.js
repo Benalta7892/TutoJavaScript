@@ -43,26 +43,44 @@
 //   console.log("Vous n'avez pas le droit de conduire");
 // }
 
-// Opérateurs inversions
-const age = 17;
-const pays = "FR";
-// if ((pays === "FR" && age >= 18) || (pays === "US" && age >= 16)) {
-//   console.log("Vous avez le droit de conduire");
-// } // "Vous avez le droit de conduire"
-const peutConduireFrance = pays === "FR" && age >= 18;
-const peutConduireUS = pays === "US" && age >= 16;
+// // Opérateurs inversions
+// const age = 17;
+// const pays = "FR";
+// // if ((pays === "FR" && age >= 18) || (pays === "US" && age >= 16)) {
+// //   console.log("Vous avez le droit de conduire");
+// // } // "Vous avez le droit de conduire"
+// const peutConduireFrance = pays === "FR" && age >= 18;
+// const peutConduireUS = pays === "US" && age >= 16;
 
-// a || b => !a && !b
-// a && b => !a || !b
+// // a || b => !a && !b
+// // a && b => !a || !b
 
-// if (!peutConduireFrance || !peutConduireUS) {
-//   console.log("Vous n'avez pas le droit de conduire");
-// }
+// // if (!peutConduireFrance || !peutConduireUS) {
+// //   console.log("Vous n'avez pas le droit de conduire");
+// // }
 
-// if (!(pays === "FR" && age >= 18) && !(pays === "US" && age >= 16)) {
+// // if (!(pays === "FR" && age >= 18) && !(pays === "US" && age >= 16)) {
+// //   console.log("Vous n'avez pas le droit de conduire");
+// // } // "Vous n'avez pas le droit de conduire"
+
+// if ((pays !== "FR" || age < 18) && (pays !== "US" || age < 16)) {
 //   console.log("Vous n'avez pas le droit de conduire");
 // } // "Vous n'avez pas le droit de conduire"
 
-if ((pays !== "FR" || age < 18) && (pays !== "US" || age < 16)) {
-  console.log("Vous n'avez pas le droit de conduire");
-} // "Vous n'avez pas le droit de conduire"
+// Conditions sur variables
+const age = 17;
+const pays = "FR";
+const peutConduireFrance = pays === "FR" && age >= 18;
+const peutConduireUS = pays === "US" && age >= 16;
+
+switch (pays) {
+  case "FR":
+    console.log("Vous êtes en France");
+    break;
+  case "US":
+    console.log("Vous êtes aux US");
+    break;
+  default:
+    console.log("Vous êtes dans un autre pays");
+    break;
+} // "Vous êtes en France"
