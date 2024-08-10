@@ -43,7 +43,28 @@
 //   console.log(letter);
 // } // B o n j o u r
 
-const greeting = "Bonjour";
-for (let letter in greeting) {
-  console.log(letter);
-} // 0 1 2 3 4 5 6
+// const greeting = "Bonjour";
+// for (let letter in greeting) {
+//   console.log(letter);
+// } // 0 1 2 3 4 5 6
+
+// Exercices : Boucles
+// Creer un algo qui va demander a l'utilisateur de rentrer un nombre entre 1 et 10,
+// verifier que le nombre est bien entre 1 et 10,
+// si ce n'est pas le cas, indiquer au'il y a une erreur et redemander a l'utilisateur de rentrer un nombre,
+// si le nombre est bien entre 1 et 10, afficher tous en dessous de ce nombre jusqu'a 0 (decrementer).
+
+// En utlisant la boucle while
+// Demander à l'utilisateur de rentrer un nombre entre 1 et 10
+let chiffre = prompt("Entrez un nombre entre 1 et 10");
+// Tant que le nombre n'est pas entre 1 et 10
+if (chiffre > 10 || chiffre < 0) {
+  // Afficher une erreur
+  console.log("Le nombre doit être compris entre 1 et 10");
+} else {
+  // Afficher les nombres en dessous de ce nombre jusqu'à
+  while (chiffre >= 0) {
+    console.log(chiffre);
+    chiffre--;
+  }
+}
