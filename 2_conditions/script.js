@@ -87,16 +87,34 @@
 
 // Exercices : Proposer un film en fonction de l'âge
 
-// Demander l'âge de l'utilisateur
-const age = prompt("Quel est votre âge ?");
+// // Demander l'année de naissance de l'utilisateur
+// const year = 2024;
+// const birthyear = prompt("Quel est votre année de naissance ?");
+// // Calculer l'âge de l'utilisateur
+// const age = year - birthyear;
 
-if (age <= 13) {
-  // Si l'âge est inférieur ou égal à 13 ans alors afficher "Lilo et Stitch"
-  console.log("Lilo et Stitch");
-} else if (age <= 18) {
-  // Sinon si l'âge est inférieur ou égal à 18 ans alors afficher "Matrix"
-  console.log("Matrix");
+// if (age <= 13) {
+//   // Si l'âge est inférieur ou égal à 13 ans alors afficher "Lilo et Stitch"
+//   console.log("Lilo et Stitch");
+// } else if (age <= 18) {
+//   // Sinon si l'âge est inférieur ou égal à 18 ans alors afficher "Matrix"
+//   console.log("Matrix");
+// } else {
+//   // Sinon afficher "Evil Dead"
+//   console.log("Evil Dead");
+// }
+
+// Exercice : Calculer 2 nombre et dire si valeur positive ou valeur négative
+// "A X B = E est positif/négatif"
+
+// Demander à l'utilisateur de rentrer 2 nombres
+const number1 = prompt("Entrez un nombre");
+const number2 = prompt("Entrez un autre nombre");
+// Calculer le produit des 2 nombres
+const result = number1 * number2;
+// Vérifier si le produit est positif ou négatif
+if (result >= 0) {
+  console.log(`${number1} X ${number2} = ${result} est positif`);
 } else {
-  // Sinon afficher "Evil Dead"
-  console.log("Evil Dead");
+  console.log(`${number1} X ${number2} = ${result} est négatif`);
 }
