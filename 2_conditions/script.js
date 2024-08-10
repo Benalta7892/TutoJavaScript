@@ -44,8 +44,8 @@
 // }
 
 // Opérateurs inversions
-const age = 13;
-const pays = "US";
+const age = 17;
+const pays = "FR";
 // if ((pays === "FR" && age >= 18) || (pays === "US" && age >= 16)) {
 //   console.log("Vous avez le droit de conduire");
 // } // "Vous avez le droit de conduire"
