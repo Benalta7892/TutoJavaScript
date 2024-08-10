@@ -26,7 +26,3 @@ if (age == 18) {
 if (age != 18) {
   console.log("Vous n'avez pas 18 ans");
 } // "Vous n'avez pas 18 ans"
-
-// git add .
-// git commit -m "Conditions et opérateurs de comparaison"
-// git push origin master
