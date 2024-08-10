@@ -1,1 +1,3 @@
-console.log("Bonjour");
+if (true) {
+  console.log("Bonjour");
+}
