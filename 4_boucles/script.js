@@ -54,17 +54,31 @@
 // si ce n'est pas le cas, indiquer au'il y a une erreur et redemander a l'utilisateur de rentrer un nombre,
 // si le nombre est bien entre 1 et 10, afficher tous en dessous de ce nombre jusqu'a 0 (decrementer).
 
-// En utlisant la boucle while
-// Demander à l'utilisateur de rentrer un nombre entre 1 et 10
-let chiffre = prompt("Entrez un nombre entre 1 et 10");
+// // En utlisant la boucle while
+// // Demander à l'utilisateur de rentrer un nombre entre 1 et 10
+// let chiffre = prompt("Entrez un nombre entre 1 et 10");
+// // Tant que le nombre n'est pas entre 1 et 10
+// if (chiffre > 10 || chiffre < 0) {
+//   // Afficher une erreur
+//   console.log("Le nombre doit être compris entre 1 et 10");
+// } else {
+//   // Afficher les nombres en dessous de ce nombre jusqu'à
+//   while (chiffre >= 0) {
+//     console.log(chiffre);
+//     chiffre--;
+//   }
+// }
+
+// // En utlisant la boucle for
+// // Demander à l'utilisateur de rentrer un nombre entre 1 et 10
+let chiffre = prompt("Entrez un nombre");
 // Tant que le nombre n'est pas entre 1 et 10
 if (chiffre > 10 || chiffre < 0) {
   // Afficher une erreur
   console.log("Le nombre doit être compris entre 1 et 10");
 } else {
-  // Afficher les nombres en dessous de ce nombre jusqu'à
-  while (chiffre >= 0) {
-    console.log(chiffre);
-    chiffre--;
+  // Afficher les nombres en dessous de ce nombre jusqu'à 0
+  for (let i = chiffre; i >= 0; i--) {
+    console.log(i);
   }
 }
