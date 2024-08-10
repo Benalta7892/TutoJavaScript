@@ -112,9 +112,15 @@ const number1 = prompt("Entrez un nombre");
 const number2 = prompt("Entrez un autre nombre");
 // Calculer le produit des 2 nombres
 const result = number1 * number2;
+let signe;
 // Vérifier si le produit est positif ou négatif
-if (result >= 0) {
-  console.log(`${number1} X ${number2} = ${result} est positif`);
+if (isNaN(result)) {
+  console.log(`Opération impossible : ${number1} X ${number2} `);
 } else {
-  console.log(`${number1} X ${number2} = ${result} est négatif`);
+  if (result >= 0) {
+    signe = "positif";
+  } else {
+    signe = "negatif";
+  }
+  console.log(`${number1} X ${number2} = ${result} est ${signe}`);
 }
