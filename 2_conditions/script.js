@@ -36,5 +36,9 @@ const pays = "FR";
 const peutConduireFrance = pays === "FR" && age >= 18;
 const peutConduireUS = pays === "US" && age >= 16;
 if (peutConduireFrance || peutConduireUS) {
-  console.log("Vous avez le droit de conduire");
-} // "Vous avez le droit de conduire"
+  console.log("Vous avez le droit de conduire en France");
+} else if (peutConduireUS) {
+  console.log("Vous avez le droit de conduire aux US");
+} else {
+  console.log("Vous n'avez pas le droit de conduire");
+}
