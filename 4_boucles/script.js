@@ -83,15 +83,30 @@
 //   }
 // }
 
+// let guess = 8;
+// let chiffre;
+
+// while (chiffre !== guess) {
+//   chiffre = prompt("Votre chiffre") * 1;
+//   if (chiffre < guess) {
+//     console.log("Plus");
+//   } else if (chiffre > guess) {
+//     console.log("Moins");
+//   }
+// }
+// console.log("Bravo, vous avez trouvé le bon chiffre");
+
 let guess = 8;
 let chiffre;
 
-while (chiffre !== guess) {
+while (true) {
   chiffre = prompt("Votre chiffre") * 1;
   if (chiffre < guess) {
     console.log("Plus");
   } else if (chiffre > guess) {
     console.log("Moins");
+  } else {
+    break;
   }
 }
 console.log("Bravo, vous avez trouvé le bon chiffre");
