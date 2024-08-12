@@ -71,14 +71,27 @@
 
 // // En utlisant la boucle for
 // // Demander à l'utilisateur de rentrer un nombre entre 1 et 10
-let chiffre = prompt("Entrez un nombre");
-// Tant que le nombre n'est pas entre 1 et 10
-if (chiffre > 10 || chiffre < 0) {
-  // Afficher une erreur
-  console.log("Le nombre doit être compris entre 1 et 10");
-} else {
-  // Afficher les nombres en dessous de ce nombre jusqu'à 0
-  for (let i = chiffre; i >= 0; i--) {
-    console.log(i);
+// let chiffre = prompt("Entrez un nombre");
+// // Tant que le nombre n'est pas entre 1 et 10
+// if (chiffre > 10 || chiffre < 0) {
+//   // Afficher une erreur
+//   console.log("Le nombre doit être compris entre 1 et 10");
+// } else {
+//   // Afficher les nombres en dessous de ce nombre jusqu'à 0
+//   for (let i = chiffre; i >= 0; i--) {
+//     console.log(i);
+//   }
+// }
+
+let guess = 8;
+let chiffre;
+
+while (chiffre !== guess) {
+  chiffre = prompt("Votre chiffre") * 1;
+  if (chiffre < guess) {
+    console.log("Plus");
+  } else if (chiffre > guess) {
+    console.log("Moins");
   }
 }
+console.log("Bravo, vous avez trouvé le bon chiffre");
