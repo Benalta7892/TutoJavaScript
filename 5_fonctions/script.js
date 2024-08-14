@@ -36,3 +36,4 @@ const a = {
 };
 
 a.fullname(); // {firstname: "John", lastname: "Doe", fullname: ƒ}
+console.log("hello".toUpperCase());
