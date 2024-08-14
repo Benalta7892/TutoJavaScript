@@ -21,11 +21,8 @@
 // greeting("Bob"); // Bonjour Bob
 // console.log(i); // 2
 
-let notes = [12, 13, 14];
-
-function upNotes(notes) {
-  notes[0]++;
+function maFonction() {
+  console.log(this);
 }
 
-upNotes(notes);
-console.log(notes); // [13, 13, 14]
+maFonction.call(3); // window
