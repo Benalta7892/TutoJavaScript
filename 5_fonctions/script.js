@@ -21,8 +21,18 @@
 // greeting("Bob"); // Bonjour Bob
 // console.log(i); // 2
 
-function maFonction() {
-  console.log(this);
-}
+// function maFonction() {
+//   console.log(this);
+// }
 
-maFonction.call(3); // window
+// maFonction.call(3); // window
+
+const a = {
+  firstname: "John",
+  lastname: "Doe",
+  fullname: function () {
+    console.log(`${this.firstname} ${this.lastname}`);
+  },
+};
+
+a.fullname(); // {firstname: "John", lastname: "Doe", fullname: ƒ}
