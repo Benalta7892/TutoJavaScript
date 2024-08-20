@@ -65,9 +65,10 @@ class Library {
   }
 
   addBooks(books) {
-    for (let book of books) {
-      this.addBook(book);
-    }
+    books.forEach(this.addBook, this);
+    // for (let book of books) {
+    //   this.addBook(book);
+    // }
   }
 
   findBooksByLetter(letter) {
