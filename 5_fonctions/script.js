@@ -27,19 +27,28 @@
 
 // maFonction.call(3); // window
 
-const a = {
-  firstname: "John",
-  lastname: "Doe",
-  fullname: function () {
-    console.log(`${this.firstname} ${this.lastname}`);
-  },
-};
+// const a = {
+//   firstname: "John",
+//   lastname: "Doe",
+//   fullname: function () {
+//     console.log(`${this.firstname} ${this.lastname}`);
+//   },
+// };
 
-const maFonction = (param1, param2) => {
-  console.log(param1, param2);
-};
+// const maFonction = (param1, param2) => {
+//   console.log(param1, param2);
+// };
 
-// a.fullname(); // {firstname: "John", lastname: "Doe", fullname: ƒ}
-// console.log("hello".toUpperCase());
+// // a.fullname(); // {firstname: "John", lastname: "Doe", fullname: ƒ}
+// // console.log("hello".toUpperCase());
 
-maFonction(1, 2); // 1 2
+// maFonction(1, 2); // 1 2
+
+// const somme = (a, b) => {
+//   return a + b;
+// };
+
+// console.log(somme(1, 2)); // 3
+
+const somme = (a, b) => a + b;
+console.log(somme(1, 2)); // 3
