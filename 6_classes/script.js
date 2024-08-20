@@ -8,23 +8,26 @@ const moyenne = (notes) => {
 
 class Student {
   ecole = "Jules Ferry";
+  _notes = [];
 
   constructor(firstname, lastname) {
     this.firstname = firstname;
     this.lastname = lastname;
   }
 
-  setNotes(notes) {
-    this.notes = notes;
+  set notes(v) {
+    if (Array.isArray(v)) {
+      this._notes = v;
+    }
   }
 
   canPass() {
-    return moyenne(this.notes) >= 10;
+    return moyenne(this._notes) >= 10;
   }
 }
 
 const John = new Student("John", "Doe");
 const Jane = new Student("Jane", "Doe");
-John.setNotes([10, 10, 9]);
-Jane.setNotes([15, 18, 19]);
+John.notes = [19];
+Jane.notes = [15, 18, 19];
 console.log(John.canPass(), Jane.canPass());
