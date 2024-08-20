@@ -25,6 +25,10 @@ class Student {
     return `${this.firstname} ${this.lastname}`;
   }
 
+  get notes() {
+    console.log(this._notes);
+  }
+
   canPass() {
     return moyenne(this._notes) >= Student.moyenne;
   }
@@ -33,6 +37,8 @@ class Student {
 }
 
 class SuperStudent extends Student {
+  _notes = [];
+
   constructor(firstname, lastname, notes) {
     super(firstname, lastname);
     this._notes = notes;
@@ -41,6 +47,11 @@ class SuperStudent extends Student {
   get name() {
     return "Super " + super.name;
   }
+
+  // get notes() {
+  //   console.log(this.#notes);
+  // }
+
   canPass() {
     return super.canPass();
   }
