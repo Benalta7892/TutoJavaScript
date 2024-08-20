@@ -32,6 +32,55 @@
 // console.log(c.perimeter); // 40
 // console.log(r.isBiggerThan(c)); // true
 
+// Exercices Bibliothècaire
+
+class Book {
+  #page = 1;
+
+  constructor(title, pages) {
+    this.title = title;
+    this.pages = pages;
+  }
+
+  get page() {
+    return this.#page;
+  }
+
+  nextPage() {
+    if (this.#page < this.pages) {
+      this.#page++;
+    }
+  }
+
+  close() {
+    this.#page = 1;
+  }
+}
+
+class Library {
+  #books = [];
+
+  addBook(book) {
+    this.#books.push(book);
+  }
+
+  addBooks(books) {
+    for (let book of books) {
+      this.addBook(book);
+    }
+  }
+
+  findBooksByLetter(letter) {
+    const found = [];
+    for (let book of this.#books) {
+      if (book.title[0].toLowerCase() === letter.toLowerCase()) {
+        found.push(book);
+      }
+    }
+    return found;
+  }
+}
+
 const b = new Book("Seigneur des anneaux", 200);
 console.log(b.page);
 b.nextPage();
