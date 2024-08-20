@@ -71,13 +71,18 @@ class Library {
   }
 
   findBooksByLetter(letter) {
-    const found = [];
-    for (let book of this.#books) {
-      if (book.title[0].toLowerCase() === letter.toLowerCase()) {
-        found.push(book);
-      }
-    }
-    return found;
+    //   const found = [];
+    //   for (let book of this.#books) {
+    //     if (book.title[0].toLowerCase() === letter.toLowerCase()) {
+    //       found.push(book);
+    //     }
+    //   }
+    //   return found;
+    // }
+
+    return this.#books.filter(
+      (book) => book.title[0].toLowerCase() === letter.toLowerCase()
+    );
   }
 }
 
