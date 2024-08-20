@@ -26,12 +26,27 @@ class Student {
   }
 
   canPass() {
-    return moyenne(this._notes) >= 10;
+    return moyenne(this._notes) >= Student.moyenne;
+  }
+
+  static moyenne = 10;
+}
+
+class SuperStudent extends Student {
+  constructor(firstname, lastname, notes) {
+    super(firstname, lastname);
+    this._notes = notes;
+  }
+
+  get name() {
+    return "Super " + super.name;
+  }
+  canPass() {
+    return super.canPass();
   }
 }
 
-const John = new Student("John", "Doe");
+const John = new SuperStudent("John", "Doe", [0, 10, 8]);
 const Jane = new Student("Jane", "Doe");
-John.notes = [19];
 Jane.notes = [15, 18, 19];
-console.log(John.name);
+console.log(John.canPass());
