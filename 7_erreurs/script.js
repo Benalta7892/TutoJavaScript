@@ -28,6 +28,33 @@ class Square extends Rectangle {
   }
 }
 
+class PromptError extends Error {}
+
+function promptRectangle() {
+  /* try { */
+  const width = parseInt(prompt("Entrez la largeur du rectangle"), 10);
+  const height = parseInt(prompt("Entrez la hauteur du rectangle"), 10);
+  const r = new Rectangle(width, height);
+  return r;
+} /*catch (e) {
+    throw new PromptError(
+      "Entrée utilisateur invalide" , {
+      cause: { code: 404, url: "https://grafikart.fr" },
+    }
+    );
+  }
+}*/
+
+try {
+  promptRectangle();
+} catch (e) {
+  if (e instanceof PromptError) {
+    console.log("Prompt error");
+  } else {
+    console.log("Erreur classique");
+  }
+}
+
 // const r = new Rectangle(10, 20);
 // console.log(r.perimeter); // 60
 // console.log(r.isValid); // true
@@ -37,11 +64,11 @@ class Square extends Rectangle {
 // console.log(c.perimeter); // 40
 // console.log(r.isBiggerThan(c)); // true
 
-try {
-  const r = new Rectangle(-10, 20);
-} catch (e) {
-  console.error(e.message);
-}
+// try {
+//   const r = new Rectangle(-10, 20);
+// } catch (e) {
+//   console.error(e.message);
+// }
 
-const r = new Rectangle(-10, 20);
-console.log("hello");
+// const r = new Rectangle(-10, 20);
+// console.log("hello");
