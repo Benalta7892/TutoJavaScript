@@ -50,5 +50,15 @@
 
 // console.log(somme(1, 2)); // 3
 
-const somme = (a, b) => a + b;
-console.log(somme(1, 2)); // 3
+// const somme = (a, b) => a + b;
+// console.log(somme(1, 2)); // 3
+
+const isPair = function (a, cb) { // cb = callback
+  if(a % 2 === 0) {
+    cb();
+  };
+}
+
+isPair(4, function(n)) {
+  console.log("Mon nombre est pair" + n);
+}
