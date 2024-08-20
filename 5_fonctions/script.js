@@ -35,5 +35,11 @@ const a = {
   },
 };
 
-a.fullname(); // {firstname: "John", lastname: "Doe", fullname: ƒ}
-console.log("hello".toUpperCase());
+const maFonction = (param1, param2) => {
+  console.log(param1, param2);
+};
+
+// a.fullname(); // {firstname: "John", lastname: "Doe", fullname: ƒ}
+// console.log("hello".toUpperCase());
+
+maFonction(1, 2); // 1 2
