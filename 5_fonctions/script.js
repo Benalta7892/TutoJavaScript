@@ -53,13 +53,44 @@
 // const somme = (a, b) => a + b;
 // console.log(somme(1, 2)); // 3
 
-const isPair = function (a, cb) {
-  // cb = callback
-  if (a % 2 === 0) {
-    cb(a);
-  }
-};
+// const isPair = function (a, cb) {
+//   // cb = callback
+//   if (a % 2 === 0) {
+//     cb(a);
+//   }
+// };
 
-isPair(4, function (n) {
-  console.log("Mon nombre est pair " + n);
-});
+// isPair(4, function (n) {
+//   console.log("Mon nombre est pair " + n);
+// });
+
+// Exercices
+
+// On creer un nombre aleatoire entre 0 et 10
+// 3 essaie pour trouver le mot
+// isRight(n)
+// guess()
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * (max + 1));
+}
+const solution = getRandomInt(10);
+console.log(solution);
+
+function isRight(n) {
+  return solution === n;
+}
+
+function guess() {
+  const number = prompt("Entrez un chiffre") * 1;
+  return isRight(number);
+}
+
+for (i = 0; i < 3; i++) {
+  if (guess()) {
+    console.log("Bravo");
+    break;
+  } else if (i === 2) {
+    console.log("Perdu");
+  }
+}
