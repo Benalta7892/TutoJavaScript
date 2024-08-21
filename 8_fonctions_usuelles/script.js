@@ -1,3 +1,5 @@
+// Methodes sur les tableaux
+
 // at pour accéder à un élément d'un tableau en partant de la fin
 const notes = [12, 17, 18];
 console.log(notes.at(-1));
