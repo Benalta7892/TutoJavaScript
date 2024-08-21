@@ -12,3 +12,9 @@ console.log(array3);
 const notes1 = [12, 17, 18, 9, 7];
 const goodNotes = notes1.filter((note) => note < 10);
 console.log(goodNotes);
+
+// forEach
+const notes2 = [12, 17, 18, 9, 7];
+notes2.forEach((note, index) => {
+  console.log(note, index);
+});
