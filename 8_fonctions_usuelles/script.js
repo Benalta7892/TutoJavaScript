@@ -40,3 +40,12 @@ console.log(notes3.reduce((acc, note) => acc + note, 0));
 // slice pour extraire une partie d'un tableau sans le modifier
 const notes4 = [12, 18, 19];
 console.log(notes4.slice().reverse());
+
+// Les fonctions
+
+// bind pour changer le contexte d'une fonction
+function hello() {
+  console.log(this);
+}
+
+const hello2 = hello.bind(3);
