@@ -33,3 +33,8 @@ console.log(
 // reduce pour additionner les valeurs d'un tableau
 const notes3 = [12, 18, 19];
 console.log(notes3.reduce((acc, note) => acc + note, 0));
+
+// reverse pour inverser un tableau (modifie le tableau)
+// slice pour extraire une partie d'un tableau sans le modifier
+const notes4 = [12, 18, 19];
+console.log(notes4.slice().reverse());
