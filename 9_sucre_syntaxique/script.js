@@ -67,3 +67,10 @@ console.log(canDrive({ age: 18, pays: "FR" })); // true
 
 function pow(n, power = 2) {}
 pow(3); // 9
+
+// Les tableaux et les objets
+const notes = [1, 2];
+// dans la console
+// [...notes, 3, 4] // [1, 2, 3, 4] // notes n'est pas modifié notes reste [1, 2] donc ça ne modifie pas l'original
+// on peut auusi mettre les éléments a la fin
+// [3, 4, ...notes] // [3, 4, 1, 2]
