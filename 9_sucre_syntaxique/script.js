@@ -74,3 +74,4 @@ const notes = [1, 2];
 // [...notes, 3, 4] // [1, 2, 3, 4] // notes n'est pas modifié notes reste [1, 2] donc ça ne modifie pas l'original
 // on peut auusi mettre les éléments a la fin
 // [3, 4, ...notes] // [3, 4, 1, 2]
+// [...notes].reverse() // [2, 1] // notes n'est pas modifié notes reste [1, 2] donc ça ne modifie pas l'original
