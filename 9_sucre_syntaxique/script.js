@@ -51,3 +51,13 @@ const { firstname, ...reste1 } = {
   age: 18,
 };
 console.log(firstname, reste1); // Affiche John { lastname: 'Doe', age: 18 }
+
+// function canDrive(age, pays) {
+
+// }
+
+function canDrive({ age, pays, region = "Paris" }) {
+  console.log(region); // Affiche Paris
+  return true;
+}
+console.log(canDrive({ age: 18, pays: "FR" })); // true
