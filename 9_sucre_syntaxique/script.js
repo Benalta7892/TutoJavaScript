@@ -25,3 +25,6 @@ console.log(double(3)); // Affiche 6
 let a;
 a ||= 3;
 console.log(a); // Affiche 3
+
+const person = { firstname: "John", age: 18 };
+console.log(person?.age?.toString()); // Affiche 18 si age existe sinon undefined
