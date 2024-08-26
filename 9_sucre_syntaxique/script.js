@@ -79,3 +79,17 @@ const notes = [1, 2];
 const person1 = { firstname: "John", lastname: "Doe" };
 // dans la console
 // { ...person1, age: 18 } // { firstname: 'John', lastname: 'Doe', age: 18 } // person1 n'est pas modifié person1 reste { firstname: 'John', lastname: 'Doe' } donc ça ne modifie pas l'original
+
+// les conditions
+const age = 18;
+// let message;
+// if (age >= 18) {
+//   message = "Majeur";
+// } else {
+//   message = "Mineur";
+// }
+// console.log(message); // Affiche Majeur
+
+// const message = age >= 18 ? "Majeur" : "Mineur";
+// console.log(message); // Affiche Majeur
+console.log(age >= 18 ? "Majeur" : "Mineur"); // Affiche Majeur
