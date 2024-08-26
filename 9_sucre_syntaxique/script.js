@@ -28,3 +28,19 @@ console.log(a); // Affiche 3
 
 const person = { firstname: "John", age: 18 };
 console.log(person?.age?.toString()); // Affiche 18 si age existe sinon undefined
+
+// La destructuration, une manière de décomposer un objet ou un tableau en plusieurs variables.
+
+//const notes = [12, 17, 18]
+// const premier = notes[0];
+// const deuxieme = notes[1];
+// const troisieme = notes[2];
+// const [premier, deuxieme, troisieme] = [12, 17, 18];
+const [premier, ...reste] = [12, 17, 18, 20];
+console.log(premier, reste); // Affiche 12 [17, 18, 20]
+
+// const person1 = { firstname: "John", lastname: "Doe", age: 18 };
+// const firstname = person1.firstname; // Pas tres pratique
+
+const { firstname: prenom } = { firstname: "John", lastname: "Doe", age: 18 };
+console.log(prenom); // Affiche John
