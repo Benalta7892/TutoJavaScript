@@ -42,5 +42,5 @@ console.log(premier, reste); // Affiche 12 [17, 18, 20]
 // const person1 = { firstname: "John", lastname: "Doe", age: 18 };
 // const firstname = person1.firstname; // Pas tres pratique
 
-const { firstname: prenom } = { firstname: "John", lastname: "Doe", age: 18 };
-console.log(prenom); // Affiche John
+const { firstname, lastname } = { firstname: "John", lastname: "Doe", age: 18 };
+console.log(firstname, lastname); // Affiche John Doe
