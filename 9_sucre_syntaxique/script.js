@@ -17,3 +17,11 @@ console.log(e); // Affiche 6
 // Pour les fonction fléchées
 const double = (n) => n * 2;
 console.log(double(3)); // Affiche 6
+
+// Pour les conditions
+// const a = 3;
+// const b = a || 5; // ??
+// console.log(b); // Affiche 3
+let a;
+a ||= 3;
+console.log(a); // Affiche 3
