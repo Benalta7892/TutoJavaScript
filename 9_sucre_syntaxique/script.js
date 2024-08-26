@@ -75,3 +75,7 @@ const notes = [1, 2];
 // on peut auusi mettre les éléments a la fin
 // [3, 4, ...notes] // [3, 4, 1, 2]
 // [...notes].reverse() // [2, 1] // notes n'est pas modifié notes reste [1, 2] donc ça ne modifie pas l'original
+
+const person1 = { firstname: "John", lastname: "Doe" };
+// dans la console
+// { ...person1, age: 18 } // { firstname: 'John', lastname: 'Doe', age: 18 } // person1 n'est pas modifié person1 reste { firstname: 'John', lastname: 'Doe' } donc ça ne modifie pas l'original
