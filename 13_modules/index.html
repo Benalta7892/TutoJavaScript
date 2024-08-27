@@ -7,8 +7,10 @@
   </head>
   <body>
     <script type="module">
-      const { hello } = await import("./array.js");
-      hello();
+      (async function () {
+        const { hello } = await import("./array.js");
+        hello();
+      })();
     </script>
   </body>
 </html>
