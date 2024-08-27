@@ -20,8 +20,9 @@ function isMajeur(age) {
 }
 
 /**
- * @returns {{id: number, title: string, body: string}[]}
+ * @returns {Array<string>} // ou {string[]}
  */
-function fetchPost() {}
+function fetchPosts() {}
 
-const a = fetchPost();
+const a = fetchPosts();
+a[0].
