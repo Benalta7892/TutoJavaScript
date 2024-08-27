@@ -4,6 +4,7 @@ async function fetchUsers() {
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     body: JSON.stringify({ title: "Mon premier article" }),
   });
+  console.log(r.headers.get("content-Type"));
   if (r.ok === true) {
     // const data = await r.json();
     return r.json();
