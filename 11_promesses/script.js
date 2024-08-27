@@ -1,6 +1,11 @@
-const p = new Promise((resolve, reject) => {
-  resolve(4);
-});
+// const p = new Promise((resolve, reject) => {
+//   resolve(4);
+// });
+
+function waitSync(duration) {
+  const t = Date.now();
+  while (Date.now() - t < duration) {}
+}
 
 function wait(duration) {
   return new Promise((resolve, reject) => {
@@ -23,6 +28,10 @@ async function main() {
   console.log(`J'ai attendu ${duration} ms`);
   return 5;
 }
-Promise.any([waitAndFail(1000), wait(2000)])
-  .then(console.log)
-  .catch(console.error);
+
+const p = new Promise((r) => {
+  console.log("hello");
+  r(2);
+});
+waitSync(2000);
+console.log("Fin du programme");
