@@ -33,5 +33,6 @@ const p = new Promise((r) => {
   console.log("hello");
   r(2);
 });
+p.then(() => console.log("then")); // ne s'exécute pas immédiatement
 waitSync(2000);
 console.log("Fin du programme");
