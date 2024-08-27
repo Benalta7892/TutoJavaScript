@@ -20,16 +20,11 @@ function isMajeur(age) {
 }
 
 /**
- * @typedef {Object} Post
- * @property {number} id
- * @property {string} title Titre de l'article
- * @property {string} body
+ * @typedef {((str: string, age: number) => Post)} Post
  */
 /**
- * @returns {Promise<Post[]>}
+ * @returns {}
  */
-function fetchPosts() {}
+async function fetchPosts() {}
 
-const a = fetchPosts().then((posts) => {
-  const post = posts[0];
-});
+fetchPosts()('FR', 18).
