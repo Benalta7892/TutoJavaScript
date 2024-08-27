@@ -20,9 +20,10 @@ function isMajeur(age) {
 }
 
 /**
- * @returns {Array<string>} // ou {string[]}
+ * @returns {Promise<{id: number, title: string, body: string}[]>}
  */
 function fetchPosts() {}
 
-const a = fetchPosts();
-a[0].
+const a = fetchPosts().then((posts) => {
+  const post = posts[0];
+});
