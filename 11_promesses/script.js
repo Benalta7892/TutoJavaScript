@@ -19,10 +19,14 @@ function waitAndFail(duration) {
 }
 
 async function main() {
-  await wait(2000);
-  console.log("Bonjour");
-  await wait(1000);
-  console.log("Au revoir");
+  try {
+    await waitAndFail(2000);
+    console.log("Bonjour");
+    await wait(1000);
+    console.log("Au revoir");
+  } catch (e) {
+    console.log("Error");
+  }
 }
 
 main();
