@@ -20,7 +20,22 @@ function isMajeur(age) {
 }
 
 /**
+ * @property {string} firstname
+ */
+class A {
+  constructor () {
+    this.firstname = [];
+  }
+
+}
+const b = new A();
+b.
+
+/**
  * @typedef {((str: string, age: number) => Post)} Post
+ * @property {number} id
+ * @property {string} title Titre de l'article
+ * @property {string} body
  */
 /**
  * @returns {}
