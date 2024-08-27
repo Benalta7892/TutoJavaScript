@@ -19,4 +19,9 @@ function isMajeur(age) {
   return age >= 18;
 }
 
-const a = canDrive(18, "FR");
+/**
+ * @returns {{id: number, title: string, body: string}[]}
+ */
+function fetchPost() {}
+
+const a = fetchPost();
