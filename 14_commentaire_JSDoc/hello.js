@@ -20,30 +20,6 @@ function isMajeur(age) {
 }
 
 /**
- * @property {string} firstname
+ * @type {string[]}
  */
-class A {
-  constructor () {
-    /**
-     * Prénom de la personne
-     * @type {string[]}
-     */
-    this.firstname = [];
-  }
-
-}
-const b = new A();
-b.
-
-/**
- * @typedef {((str: string, age: number) => Post)} Post
- * @property {number} id
- * @property {string} title Titre de l'article
- * @property {string} body
- */
-/**
- * @returns {}
- */
-async function fetchPosts() {}
-
-fetchPosts()('FR', 18).
+const b = [];
