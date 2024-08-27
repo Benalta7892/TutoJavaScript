@@ -29,10 +29,6 @@ async function main() {
   return 5;
 }
 
-function waitAndLog(duration, msg) {
-  return wait(duration).then(() => console.log(msg));
-}
-
 // const p = new Promise((r) => {
 //   console.log("hello");
 //   r(2);
