@@ -29,10 +29,14 @@ async function main() {
   return 5;
 }
 
-const p = new Promise((r) => {
-  console.log("hello");
-  r(2);
-});
-p.then(() => console.log("then")); // ne s'exécute pas immédiatement
-waitSync(2000);
-console.log("Fin du programme");
+function waitAndLog(duration, msg) {
+  return wait(duration).then(() => console.log(msg));
+}
+
+// const p = new Promise((r) => {
+//   console.log("hello");
+//   r(2);
+// });
+// p.then(() => console.log("then")); // ne s'exécute pas immédiatement
+// waitSync(2000);
+// console.log("Fin du programme");
