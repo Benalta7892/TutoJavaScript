@@ -1,9 +1,8 @@
 async function fetchUsers() {
-  const r = await fetch("https://jsonplaceholder.typicode.com/users", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
+  const r = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    body: JSON.stringify({ title: "Mon premier article" }),
   });
   if (r.ok === true) {
     // const data = await r.json();
