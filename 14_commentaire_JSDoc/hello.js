@@ -24,6 +24,10 @@ function isMajeur(age) {
  */
 class A {
   constructor () {
+    /**
+     * Prénom de la personne
+     * @type {string[]}
+     */
     this.firstname = [];
   }
 
