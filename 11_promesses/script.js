@@ -21,6 +21,7 @@ function waitAndFail(duration) {
 async function main() {
   const duration = await wait(2000);
   console.log(`J'ai attendu ${duration} ms`);
+  return 5;
 }
 
-main();
+main().then((n) => console.log);
