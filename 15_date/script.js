@@ -34,4 +34,4 @@ const future = addInterval(today, {
   [MINUTES]: 3,
 });
 console.log(today);
-console.log(future);
+console.log((future.getTime() - Date.now()) / 1000); // Donne le nombre de secondes restantes
