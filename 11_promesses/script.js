@@ -19,14 +19,8 @@ function waitAndFail(duration) {
 }
 
 async function main() {
-  try {
-    await waitAndFail(2000);
-    console.log("Bonjour");
-    await wait(1000);
-    console.log("Au revoir");
-  } catch (e) {
-    console.log("Error");
-  }
+  const duration = await wait(2000);
+  console.log(`J'ai attendu ${duration} ms`);
 }
 
 main();
