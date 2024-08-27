@@ -7,11 +7,8 @@
   </head>
   <body>
     <script type="module">
-      console.log(
-        import("./array.js").then(({ hello }) => {
-          hello();
-        })
-      );
+      const { hello } = await import("./array.js");
+      hello();
     </script>
   </body>
 </html>
