@@ -6,6 +6,10 @@
     <title>Document</title>
   </head>
   <body>
-    <script src="script.js"></script>
+    <script type="module">
+      import { sum as somme, hello } from "./array.js";
+
+      console.log(somme([12, 23, 19]));
+    </script>
   </body>
 </html>
