@@ -23,5 +23,6 @@ async function main() {
   console.log(`J'ai attendu ${duration} ms`);
   return 5;
 }
-
-main();
+Promise.all([wait(1000), waitAndFail(2000)])
+  .then(console.log)
+  .catch(console.log);
