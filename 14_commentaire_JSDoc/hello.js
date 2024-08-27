@@ -20,7 +20,13 @@ function isMajeur(age) {
 }
 
 /**
- * @returns {Promise<{id: number, title: string, body: string}[]>}
+ * @typedef {Object} Post
+ * @property {number} id
+ * @property {string} title Titre de l'article
+ * @property {string} body
+ */
+/**
+ * @returns {Promise<Post[]>}
  */
 function fetchPosts() {}
 
