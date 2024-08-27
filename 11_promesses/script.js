@@ -21,8 +21,6 @@ function waitAndFail(duration) {
 wait(2000)
   .then(() => {
     console.log("Attente 2s");
-    return wait(1000);
+    return waitAndFail(1000); // Rejetée
   })
-  .then(() => {
-    console.log("Attente 1s");
-  });
+  .catch(() => null);
