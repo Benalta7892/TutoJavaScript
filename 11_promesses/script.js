@@ -4,12 +4,12 @@ const p = new Promise((resolve, reject) => {
 
 p.then((n) => {
   console.log("Le nombre", n);
-  throw new Error("Echec");
-  // return 5;
+  return 2;
 })
   .then((n) => console.log("Le nombre 2", n))
   .catch((e) => {
     console.log("Erreur", e);
     return 2;
   })
-  .then((n) => console.log(2));
+  .then((n) => console.log(2))
+  .finally(() => console.log("Fin")); // Sera exécuté dans tous les cas
