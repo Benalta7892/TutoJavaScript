@@ -2,6 +2,8 @@ const p = new Promise((resolve, reject) => {
   reject(4);
 });
 
-p.catch((e) => {
-  console.log("Echec", e);
+p.then((n) => {
+  console.log("Le nombre", n);
+}).catch((e) => {
+  console.log("Erreur", e);
 });
