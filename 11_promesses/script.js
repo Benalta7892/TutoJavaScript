@@ -18,9 +18,11 @@ function waitAndFail(duration) {
   });
 }
 
-wait(2000)
-  .then(() => {
-    console.log("Attente 2s");
-    return waitAndFail(1000); // Rejetée
-  })
-  .catch(() => null);
+async function main() {
+  await wait(2000);
+  console.log("Bonjour");
+  await wait(1000);
+  console.log("Au revoir");
+}
+
+main();
