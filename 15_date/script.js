@@ -7,6 +7,9 @@ function addDays(date, days) {
 const MONTHS = 1;
 const DAYS = 2;
 const YEARS = 0;
+const HOURS = 3;
+const MINUTES = 4;
+const SECONDS = 5;
 
 function addInterval(date, interval) {
   const parts = [
@@ -28,6 +31,7 @@ const today = new Date();
 const future = addInterval(today, {
   [MONTHS]: 2,
   [DAYS]: 1,
+  [MINUTES]: 3,
 });
 console.log(today);
 console.log(future);
