@@ -33,16 +33,29 @@
 //   }
 // }, 1000);
 
+// function decompte(n) {
+//   console.log(n);
+//   const t = setInterval(() => {
+//     n--;
+//     console.log(n);
+//     if (n === 0) {
+//       clearInterval(t);
+//     }
+//   }, 1000);
+// }
+
+// decompte(3);
+// // decompte(5);
+
 function decompte(n) {
   console.log(n);
-  const t = setInterval(() => {
-    n--;
-    console.log(n);
-    if (n === 0) {
-      clearInterval(t);
-    }
+  if (n === 0) {
+    return;
+  }
+  const t = setTimeout(() => {
+    decompte(n - 1);
   }, 1000);
 }
 
 decompte(3);
-decompte(5);
+// decompte(5);
