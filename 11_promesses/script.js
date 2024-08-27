@@ -24,4 +24,4 @@ async function main() {
   return 5;
 }
 
-main().then((n) => console.log);
+main();
