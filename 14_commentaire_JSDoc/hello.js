@@ -23,3 +23,11 @@ function isMajeur(age) {
  * @type {string[]}
  */
 const b = [];
+
+/**
+ * Les commentaires doivent être placés avant la déclaration de la fonction ou de la variable leur but est de documenter le code
+ * et de permettre à un autre développeur de comprendre le code sans avoir à le lire en entier, l'auto-complétion des IDE (VSCode, WebStorm, etc.)
+ * qui sont des éditeurs de code, permettent de voir les commentaires directement dans le code sans avoir à ouvrir le fichier. La JSdoc permet d'avoir
+ * un peu plus de precision sur le type des variables, des paramètres et des retours de fonctions.
+ *
+ */
