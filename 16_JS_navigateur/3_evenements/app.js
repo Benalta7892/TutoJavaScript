@@ -3,9 +3,9 @@
  * @param {PointerEvent} event
  */
 function onButtonClick(event) {
-  console.log(event.currentTarget);
+  event.preventDefault();
 }
 
-document.querySelectorAll("button").forEach((btn) => {
+document.querySelectorAll("button, a").forEach((btn) => {
   btn.addEventListener("click", onButtonClick);
 });
