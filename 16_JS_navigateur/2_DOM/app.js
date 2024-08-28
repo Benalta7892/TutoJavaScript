@@ -5,11 +5,16 @@
  */
 function createArticle(post) {
   const article = document.createElement("article");
-  article.innerHTML = `
-    <h2>${post.title}</h2>
-    <p>${post.body}</p>
-    `;
+
+  article.append(createElementWithText("h2", post.title));
+  article.append(createElementWithText("p", post.body));
   return article;
+}
+
+function createElementWithText(tagName, content) {
+  const element = document.createElement(tagName);
+  element.innerText = content;
+  return element;
 }
 
 async function main() {
@@ -31,6 +36,12 @@ async function main() {
     }
 
     const posts = await r.json();
+    // const posts = [
+    //   {
+    //     title: `<style>body {background: blue;}</style>`,
+    //     body: "Hello world",
+    //   },
+    // ];
     loader.remove();
     for (let post of posts) {
       wrapper.append(createArticle(post));
