@@ -16,3 +16,11 @@ document.querySelectorAll("button, a").forEach((btn) => {
 document.querySelector("div").addEventListener("click", () => {
   console.log("click div");
 });
+
+document.addEventListener(
+  "scroll",
+  (e) => {
+    e.preventDefault();
+  },
+  { passive: false }
+);
