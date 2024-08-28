@@ -1,5 +1,5 @@
 const ul = document.querySelector("ul li:first-child");
 
 setInterval(() => {
-  ul.classList.toggle("red");
+  ul.classList.add("red");
 }, 1000);
