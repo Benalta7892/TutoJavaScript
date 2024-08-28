@@ -10,7 +10,7 @@ function onButtonClick(event) {
 }
 
 document.querySelectorAll("button, a").forEach((btn) => {
-  btn.addEventListener("click", onButtonClick);
+  btn.addEventListener("click", onButtonClick, { once: true });
 });
 
 document.querySelector("div").addEventListener("click", () => {
