@@ -1,2 +1,5 @@
-const ul = document.querySelector("ul");
-console.log(ul.nodeName, ul.textContent);
+const ul = document.querySelector("ul li:first-child");
+
+setInterval(() => {
+  ul.classList.toggle("red");
+}, 1000);
