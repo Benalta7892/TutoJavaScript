@@ -1,4 +1,11 @@
-const button = document.querySelector("button");
-button.addEventListener("click", function (event) {
-  console.log(event);
+/**
+ *
+ * @param {PointerEvent} event
+ */
+function onButtonClick(event) {
+  console.log(event.currentTarget);
+}
+
+document.querySelectorAll("button").forEach((btn) => {
+  btn.addEventListener("click", onButtonClick);
 });
