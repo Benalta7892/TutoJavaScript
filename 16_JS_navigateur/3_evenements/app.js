@@ -1,6 +1,3 @@
-document.addEventListener("keydown", (e) => {
-  if (e.ctrlKey === true && e.key === "k") {
-    e.preventDefault();
-    console.log("Raccourci");
-  }
+document.querySelector("input").addEventListener("change", (e) => {
+  console.log(e.currentTarget.checked);
 });
