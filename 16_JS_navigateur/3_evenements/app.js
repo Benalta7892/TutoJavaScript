@@ -6,6 +6,7 @@ function onButtonClick(event) {
   console.log("button click");
   event.preventDefault();
   event.stopPropagation();
+  console.log(event);
 }
 
 document.querySelectorAll("button, a").forEach((btn) => {
