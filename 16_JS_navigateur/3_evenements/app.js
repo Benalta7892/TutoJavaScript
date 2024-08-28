@@ -1,3 +1,5 @@
-document.querySelector("select").addEventListener("change", (e) => {
-  console.log(Array.from(e.currentTarget.selectedOptions).map((o) => o.value));
+document.querySelectorAll(".spoiler").forEach((spoiler) => {
+  spoiler.addEventListener("click", (e) => {
+    e.currentTarget.classList.remove("spoiler");
+  });
 });
