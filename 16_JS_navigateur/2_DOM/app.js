@@ -1,4 +1,5 @@
 const li = document.querySelector("ul li:first-child");
-const newLi = document.createElement("li");
-newLi.innerHTML = "Ceci est un nouvel élément";
-document.querySelector("ul").appendChild(newLi);
+const ul = document.querySelector("ul");
+const div = document.createElement("div");
+div.innerHTML = "Je suis un div";
+ul.insertAdjacentElement("afterbegin", div);
