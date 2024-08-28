@@ -1,4 +1,8 @@
 document.querySelector("form").addEventListener("submit", (e) => {
-  console.log(e);
-  e.preventDefault();
+  const form = e.currentTarget;
+  const data = new FormData(form);
+  const firstname = data.get("firstname");
+  if (firstname.length < 2) {
+    e.preventDefault();
+  }
 });
