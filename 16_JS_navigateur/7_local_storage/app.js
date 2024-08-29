@@ -3,7 +3,12 @@ import { fetchJSON } from "./functions/api.js";
 import { createElement } from "./functions/dom.js";
 
 try {
-  const todos = await fetchJSON("https://jsonplaceholder.typicode.com/todos?_limit=5");
+  // const todos = await fetchJSON("https://jsonplaceholder.typicode.com/todos?_limit=5");
+  const todosInStorage = sessionStorage.getItem("todos")?.toString(); // ou localStorage pour une persistance plus longue
+  let todos = [];
+  if (todosInStorage) {
+    todos = JSON.parse(todosInStorage);
+  }
   const list = new TodoList(todos);
   list.appendTo(document.querySelector("#todolist"));
 } catch (e) {
