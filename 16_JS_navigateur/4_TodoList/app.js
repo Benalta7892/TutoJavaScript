@@ -15,4 +15,5 @@ try {
   });
   alertElement.innerText = "Impossible de charger les elements";
   document.body.prepend(alertElement);
+  console.error(e);
 }
