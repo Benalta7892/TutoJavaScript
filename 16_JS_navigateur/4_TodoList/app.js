@@ -4,7 +4,7 @@ import { createElement } from "./functions/dom.js";
 
 try {
   const todos = await fetchJSON(
-    "https://jsosnplaceholder.typicode.com/todos?_limit=5"
+    "https://jsonplaceholder.typicode.com/todos?_limit=5"
   );
   const list = new TodoList(todos);
   list.appendTo(document.querySelector("#todolist"));
