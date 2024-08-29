@@ -1,0 +1,8 @@
+.is-completed {
+  display: none;
+}
+
+.hide-completed .is-completed,
+.hide-todo .todo:not(.is-completed) {
+  display: none !important;
+}
