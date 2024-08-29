@@ -37,9 +37,7 @@ export class TodoList {
       const t = new TodoListItem(todo);
       this.#listElement.append(t.element);
     }
-    element
-      .querySelector("form")
-      .addEventListener("submit", (e) => this.#onSubmit(e));
+    element.querySelector("form").addEventListener("submit", (e) => this.#onSubmit(e));
     element.querySelectorAll(".btn-group button").forEach((button) => {
       button.addEventListener("click", (e) => this.#toggleFilter(e));
     });
@@ -72,9 +70,7 @@ export class TodoList {
   #toggleFilter(e) {
     e.preventDefault();
     const filter = e.currentTarget.getAttribute("data-filter");
-    e.currentTarget.parentElement
-      .querySelector(".active")
-      .classList.remove("active");
+    e.currentTarget.parentElement.querySelector(".active").classList.remove("active");
     e.currentTarget.classList.add("active");
     if (filter === "todo") {
       this.#listElement.classList.add("hide-completed");
