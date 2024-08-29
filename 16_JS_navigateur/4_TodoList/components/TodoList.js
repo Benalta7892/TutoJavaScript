@@ -87,6 +87,7 @@ class TodoListItem {
       type: "checkbox",
       class: "form-check-input",
       id,
+      checked: todo.completed,
     });
     const label = createElement("label", {
       class: "ms-2 form-check-label",
