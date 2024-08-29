@@ -116,9 +116,7 @@ class TodoListItem {
     button.addEventListener("click", (e) => this.remove(e));
     checkbox.addEventListener("change", (e) => this.toggle(e.currentTarget));
 
-    this.#element.addEventListener("delete", (e) => {
-      console.log(e);
-    });
+    this.#element.addEventListener("delete", (e) => {});
   }
 
   /**
@@ -135,11 +133,15 @@ class TodoListItem {
    */
   remove(e) {
     e.preventDefault();
-    this.element.dispatchEvent(
-      new CustomEvent("delete", {
-        detail: this.#todo,
-      })
-    );
+    const event = new CustomEvent("delete", {
+      detail: this.#todo,
+      bubbles: true,
+      cancelable: true,
+    });
+    this.element.dispatchEvent(event);
+    if (event.defaultPrevented) {
+      return;
+    }
     this.#element.remove();
   }
 
