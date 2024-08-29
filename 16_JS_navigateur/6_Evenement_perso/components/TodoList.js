@@ -41,6 +41,16 @@ export class TodoList {
     element.querySelectorAll(".btn-group button").forEach((button) => {
       button.addEventListener("click", (e) => this.#toggleFilter(e));
     });
+
+    this.#listElement.addEventListener("delete", ({ detail: todo }) => {
+      this.#todos = this.#todos.filter((t) => t !== todo);
+      console.log(this.#todos);
+    });
+
+    this.#listElement.addEventListener("toggle", ({ detail: todo }) => {
+      todo.completed = !todo.completed;
+      console.log(this.#todos);
+    });
   }
   /**
    * @param {SubmitEvent} e
@@ -155,5 +165,10 @@ class TodoListItem {
     } else {
       this.#element.classList.remove("is-completed");
     }
+    const event = new CustomEvent("toggle", {
+      detail: this.#todo,
+      bubbles: true,
+    });
+    this.element.dispatchEvent(event);
   }
 }
