@@ -82,6 +82,7 @@ export class TodoList {
    */
   onSubmit(e) {
     e.preventDefault();
+    const form = e.currentTarget;
     const title = new FormData(e.currentTarget).get("title").toString().trim();
     if (title === "") {
       return;
@@ -94,6 +95,7 @@ export class TodoList {
     };
     const item = new TodoListItem(todo);
     this.#listElement.prepend(item.element);
+    form.reset();
   }
 }
 
