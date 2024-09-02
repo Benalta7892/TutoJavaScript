@@ -18,3 +18,4 @@ const observer = new IntersectionObserver((entries) => {
 
 observer.observe(document.querySelector(".btn1"));
 observer.observe(document.querySelector(".btn2"));
+observer.disconnect();
