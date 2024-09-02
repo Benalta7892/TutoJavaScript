@@ -26,4 +26,8 @@ function setCookie(name, value, days) {
 
 // setCookie("hello", "Bonjour les gens", 2);
 
-console.log(getCookie("hello"));
+// console.log(getCookie("hello"));
+
+fetch("https://jsonplaceholder.typicode.com/todos?_limit=5", {
+  credentials: "include",
+});
