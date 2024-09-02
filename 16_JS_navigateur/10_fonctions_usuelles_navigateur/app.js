@@ -1,6 +1,7 @@
 const button = document.querySelector("button");
-button.animate([{ transform: "translateY(100px)", rotate: "180deg" }], {
-  duration: 1000,
-  iterations: 2,
-  fill: "both",
+
+const mediaQuery = window.matchMedia("(min-height: 300px)");
+
+mediaQuery.addEventListener("change", (e) => {
+  console.log(mediaQuery.matches);
 });
