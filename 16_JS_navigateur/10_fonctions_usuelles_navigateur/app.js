@@ -1,7 +1,7 @@
-const button = document.querySelector("button");
-
-const mediaQuery = window.matchMedia("(min-height: 300px)");
-
-mediaQuery.addEventListener("change", (e) => {
-  console.log(mediaQuery.matches);
+const img = document.querySelector("img");
+img.addEventListener("load", () => {
+  console.log(img.width);
+  console.log(img.height);
+  console.log(img.naturalWidth);
+  console.log(img.naturalHeight);
 });
