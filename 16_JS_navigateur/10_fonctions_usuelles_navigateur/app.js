@@ -1,10 +1,6 @@
 const button = document.querySelector("button");
-let i = 0;
-const listener = () => {
-  i++;
-  console.log(button.dataset.name);
-  if (i >= 3) {
-    button.removeEventListener("click", listener);
-  }
-};
-button.addEventListener("click", listener);
+button.animate([{ transform: "translateY(100px)", rotate: "180deg" }], {
+  duration: 1000,
+  iterations: 2,
+  fill: "both",
+});
