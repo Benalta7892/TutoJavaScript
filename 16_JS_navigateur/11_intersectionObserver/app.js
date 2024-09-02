@@ -7,7 +7,7 @@ const observer = new IntersectionObserver(
     }
   },
   {
-    rootMargin: "50px 50px 50px 50px",
+    threshold: 0.5,
   }
 );
 
