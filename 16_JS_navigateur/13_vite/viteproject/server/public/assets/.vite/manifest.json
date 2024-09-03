@@ -1,0 +1,18 @@
+{
+  "resources/main.js": {
+    "file": "main-DQ4QZL45.js",
+    "name": "main",
+    "src": "resources/main.js",
+    "isEntry": true,
+    "css": [
+      "main-D-YngIZh.css"
+    ],
+    "assets": [
+      "perroquet-BU6fNBbu.jpg"
+    ]
+  },
+  "resources/perroquet.jpg": {
+    "file": "perroquet-BU6fNBbu.jpg",
+    "src": "resources/perroquet.jpg"
+  }
+}

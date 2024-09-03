@@ -7,9 +7,22 @@
   <title>Document</title>
   <?php
   $dev = true;
+  if (!$dev) {
+    $manifest = json_decode(file_get_contents('./assets/.vite/manifest.json'), true);
   ?>
-  <script src="http://localhost:5173/@vite/client" type="module"></script>
-  <script src="http://localhost:5173/resources/main.js" type="module"></script>
+    <script src="/assets/<?= $manifest['resources/main.js']['file'] ?>" type="module"></script>
+    <link rel="stylesheet" href="/assets/<?= $manifest['resources/main.js']['css'][0] ?>">
+  <?php
+  } else {
+  ?>
+    <script src="http://localhost:5173/assets/@vite/client" type="module"></script>
+    <script src="http://localhost:5173/assets/resources/main.js" type="module"></script>
+  <?php
+  }
+  ?>
+
+
+
 </head>
 
 <body>
