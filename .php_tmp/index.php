@@ -8,8 +8,8 @@
   <?php
   $dev = true;
   ?>
-  <script src="http://localhost:5173/@vite/client" type="module"></script>
-  <script src="http://localhost:5173/resources/main.js" type="module"></script>
+  <script src="http://localhost:5173/assets/@vite/client" type="module"></script>
+  <script src="http://localhost:5173/assets/resources/main.js" type="module"></script>
 </head>
 
 <body>
