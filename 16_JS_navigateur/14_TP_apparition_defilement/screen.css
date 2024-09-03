@@ -871,3 +871,8 @@ body {
     margin: 60px 0;
   }
 }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(-30px);
+}
