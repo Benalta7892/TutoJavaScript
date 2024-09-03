@@ -1,7 +1,4 @@
 import "./style.scss";
 
-import("./counter.js").then((module) => {
-  module.setupCounter(document.querySelector("button"));
-});
-
-confetti();
+console.log(import.meta.env.VITE_API_ENDPOINT);
+console.log(import.meta.env.DATABASE_URL);
