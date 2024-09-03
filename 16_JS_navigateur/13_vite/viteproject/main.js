@@ -1,4 +1,7 @@
-import confetti from "canvas-confetti";
-import "./style.css";
+import "./style.scss";
+
+import("./counter.js").then((module) => {
+  module.setupCounter(document.querySelector("button"));
+});
 
 confetti();
