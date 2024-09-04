@@ -14,6 +14,7 @@ const handleIntersect = function (entries, observer) {
   });
 };
 
+document.documentElement.classList.add("reveal-loaded");
 const observer = new IntersectionObserver(handleIntersect, options);
 document.querySelectorAll(".reveal").forEach(function (r) {
   observer.observe(r);
