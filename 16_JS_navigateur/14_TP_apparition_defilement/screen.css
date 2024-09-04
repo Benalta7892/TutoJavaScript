@@ -892,3 +892,15 @@ body {
 .reveal-4 {
   transition-delay: 0.3s;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal [class*="reveal-"] {
+    opacity: 1 !important;
+    transform: translateY(0px) !important;
+  }
+
+  [class*="reveal-"] {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
