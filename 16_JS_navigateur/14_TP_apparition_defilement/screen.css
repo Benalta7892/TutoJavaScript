@@ -873,24 +873,22 @@ body {
 }
 
 .reveal [class*="reveal-"] {
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 0 !important;
+  transform: translateY(30px) !important;
 }
 
-.reveal-visible [class*="reveal-"] {
-  opacity: 1;
-  transform: translateY(0);
+[class*="reveal-"] {
   transition: 1s cubic-bezier(0.5, 0, 0, 1);
 }
 
-.reveal-visible .reveal-2 {
+.reveal-2 {
   transition-delay: 0.1s;
 }
 
-.reveal-visible .reveal-3 {
+.reveal-3 {
   transition-delay: 0.2s;
 }
 
-.reveal-visible .reveal-4 {
+.reveal-4 {
   transition-delay: 0.3s;
 }
