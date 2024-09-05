@@ -42,8 +42,8 @@ class InfinitePagination {
     if (this.#loading) {
       return;
     }
+    this.#loading = true;
     try {
-      this.#loading = true;
       const url = new URL(this.#endpoint);
       url.searchParams.set("_page", this.#page);
       const comments = await fetchJSON(url.toString());
@@ -62,9 +62,13 @@ class InfinitePagination {
       this.#page++;
       this.#loading = false;
     } catch (e) {
-      this.#target.append(alertElement("Impossible de charger les contenus"));
-      this.#observer.disconnect();
-      this.#loader.remove();
+      this.#loader.style.display = "none";
+      const error = alertElement("Impossible de charger les contenus");
+      error.addEventListener("close", () => {
+        this.#loader.style.removeProperty("display");
+        this.#loading = false;
+      });
+      this.#target.append(error);
     }
   }
 }
