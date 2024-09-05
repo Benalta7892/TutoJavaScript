@@ -17,7 +17,8 @@ class ProductViewer {
     for (const link of links) {
       link.addEventListener("click", this.#onThumbnailClick.bind(this));
     }
-    element.querySelector(".js-image-medium").addEventListener("mouseenter", this.#onEnter.bind(this));
+    this.#mediumImage.addEventListener("mouseenter", this.#onEnter.bind(this));
+    this.#mediumImage.addEventListener("mouseleave", this.#onLeave.bind(this));
   }
 
   /**
@@ -37,6 +38,16 @@ class ProductViewer {
    */
   #onEnter(e) {
     this.#zoomElement.classList.add("active");
+    const rect = this.#mediumImage.getBoundingClientRect();
+    this.#zoomElement.style.setProperty("--left", `${rect.x + rect.width}px`);
+  }
+
+  /**
+   *
+   * @param {PointerEvent} e
+   */
+  #onLeave(e) {
+    this.#zoomElement.classList.remove("active");
   }
 }
 
