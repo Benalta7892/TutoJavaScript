@@ -45,6 +45,13 @@
   background: rgba(46, 46, 241, 0.287);
   top: 0;
   left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.product_image:hover .product_magnifier {
+  opacity: 1;
 }
 
 .product_zoom {
