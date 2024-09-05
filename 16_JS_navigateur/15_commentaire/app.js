@@ -106,12 +106,18 @@ class FetchForm {
     button.setAttribute("disabled", "");
     try {
       const data = new FormData(form);
-      const result = await fetchJSON(this.#endpoint, {
+      const comment = await fetchJSON(this.#endpoint, {
         method: "POST",
-        body: JSON.stringify(Object.fromEntries(data)),
-        headers: { "Content-Type": "application/json" },
+        json: Object.fromEntries(data),
       });
-      console.log(result);
+
+      const commentElement = this.#template.content.cloneNode(true);
+      for (const [key, selector] of Object.entries(this.#elements)) {
+        commentElement.querySelector(selector).innerText = comment[key];
+      }
+      this.#target.prepend(commentElement);
+      form.reset();
+      button.removeAttribute("disabled");
     } catch (e) {}
   }
 }
