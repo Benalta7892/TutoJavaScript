@@ -14,7 +14,7 @@ class ProductViewer {
   /** @type {HTMLElement} */
   #magnifier;
   /** @type {{width: number, heigth: number}} */
-  #ratio;
+  #ratio = { width: 1, height: 1 };
 
   /**
    * @param {HTMLElement} element
@@ -79,10 +79,23 @@ class ProductViewer {
     };
     const magnifierRatio = {
       x: clamp(cursorRatio.x - this.#ratio.width / 2, 0, 1 - this.#ratio.width),
+      y: clamp(cursorRatio.y - this.#ratio.height / 2, 0, 1 - this.#ratio.height),
     };
     this.#magnifier.style.setProperty(
       "transform",
-      `translate3d(${magnifierRatio.x * this.#mediumImage.width}px, 0, 0)`
+      `translate3d(
+      ${magnifierRatio.x * this.#mediumImage.width}px,
+      ${magnifierRatio.y * this.#mediumImage.height}px,
+      0
+      )`
+    );
+    this.#largeImage.style.setProperty(
+      "transform",
+      `translate3d(
+        -${magnifierRatio.x * 100}%,
+        -${magnifierRatio.y * 100}%,
+        0
+        )`
     );
   }
 
