@@ -118,7 +118,14 @@ class FetchForm {
       this.#target.prepend(commentElement);
       form.reset();
       button.removeAttribute("disabled");
-    } catch (e) {}
+      form.insertAdjacentElement("beforebegin", alertElement("Commentaire posté avec succès", "success"));
+    } catch (e) {
+      const errorElement = alertElement("Impossible de poster le commentaire");
+      form.insertAdjacentElement("beforebegin", errorElement);
+      errorElement.addEventListener("close", () => {
+        button.removeAttribute("disabled");
+      });
+    }
   }
 }
 
