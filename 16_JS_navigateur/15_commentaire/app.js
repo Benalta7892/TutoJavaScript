@@ -73,4 +73,13 @@ class InfinitePagination {
   }
 }
 
+class FetchForm {
+  /**
+   * @param {HTMLFormElement} element
+   */
+  constructor(element) {}
+}
+
 document.querySelectorAll(".js-infinite-pagination").forEach((el) => new InfinitePagination(el));
+
+document.querySelectorAll(".js-form-fetch").forEach((form) => new FetchForm(form));
