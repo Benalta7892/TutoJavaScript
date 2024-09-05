@@ -1,3 +1,5 @@
+import { clamp } from "./functions/math.js";
+
 class ProductViewer {
   /** @type {HTMLImageElement} */
   #mediumImage;
@@ -11,6 +13,8 @@ class ProductViewer {
   #zoomElement;
   /** @type {HTMLElement} */
   #magnifier;
+  /** @type {{width: number, heigth: number}} */
+  #ratio;
 
   /**
    * @param {HTMLElement} element
@@ -69,21 +73,27 @@ class ProductViewer {
    * @param {PointerEvent} e
    */
   #onMove(e) {
+    const cursorRatio = {
+      x: e.offsetX / this.#mediumImage.width,
+      y: e.offsetY / this.#mediumImage.height,
+    };
+    const magnifierRatio = {
+      x: clamp(cursorRatio.x - this.#ratio.width / 2, 0, 1 - this.#ratio.width),
+    };
     this.#magnifier.style.setProperty(
       "transform",
-      `translate3d(calc(${e.offsetX}px - 50%), calc(${e.offsetY}px - 50%), 0)`
+      `translate3d(${magnifierRatio.x * this.#mediumImage.width}px, 0, 0)`
     );
-    console.log(e.offsetX / this.#mediumImage.width, e.offsetY / this.#mediumImage.height);
   }
 
   #updateRatio() {
     const zoomRect = this.#zoomElement.getBoundingClientRect();
-    const ratio = {
+    this.#ratio = {
       width: zoomRect.width / this.#largeImage.width,
       height: zoomRect.height / this.#largeImage.height,
     };
-    this.#magnifier.style.setProperty("width", `${ratio.width * 100}%`);
-    this.#magnifier.style.setProperty("height", `${ratio.height * 100}%`);
+    this.#magnifier.style.setProperty("width", `${this.#ratio.width * 100}%`);
+    this.#magnifier.style.setProperty("height", `${this.#ratio.height * 100}%`);
   }
 }
 
