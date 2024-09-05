@@ -2,6 +2,8 @@ import { clamp } from "./functions/math.js";
 
 class ProductViewer {
   /** @type {HTMLImageElement} */
+  #element;
+  /** @type {HTMLImageElement} */
   #mediumImage;
   /** @type {HTMLImageElement} */
   #largeImage;
@@ -25,6 +27,7 @@ class ProductViewer {
     this.#zoomElement = element.querySelector(".js-zoom");
     this.#largeImage = element.querySelector(".js-image-large");
     this.#magnifier = element.querySelector(".js-magnifier");
+    this.#element = element;
 
     const links = this.#thumbnailWrapper.querySelectorAll("a");
     this.#largeImageSrc = links[0].getAttribute("href");
@@ -57,6 +60,7 @@ class ProductViewer {
     this.#zoomElement.classList.add("active");
     const rect = this.#mediumImage.getBoundingClientRect();
     this.#largeImage.setAttribute("src", this.#largeImageSrc);
+    this.#element.classList.remove("image-loaded");
     this.#zoomElement.style.setProperty("--left", `${rect.x + rect.width}px`);
   }
 
@@ -107,6 +111,7 @@ class ProductViewer {
     };
     this.#magnifier.style.setProperty("width", `${this.#ratio.width * 100}%`);
     this.#magnifier.style.setProperty("height", `${this.#ratio.height * 100}%`);
+    this.#element.classList.add("image-loaded");
   }
 }
 

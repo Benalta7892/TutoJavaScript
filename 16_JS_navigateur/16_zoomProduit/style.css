@@ -51,7 +51,7 @@
   transition: opacity 0.3s;
 }
 
-.product_image:hover .product_magnifier {
+.image-loaded .product_image:hover .product_magnifier {
   opacity: 1;
 }
 
@@ -69,6 +69,6 @@
   transition: opacity 0.3s;
 }
 
-.product_zoom.active {
+.image-loaded .product_zoom.active {
   opacity: 1;
 }
