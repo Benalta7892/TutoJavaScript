@@ -1,3 +1,4 @@
+import { alertElement } from "./functions/alert.js";
 import { fetchJSON } from "./functions/api.js";
 
 class InfinitePagination {
@@ -27,7 +28,6 @@ class InfinitePagination {
     this.#template = document.querySelector(element.dataset.template);
     this.#target = document.querySelector(element.dataset.target);
     this.#elements = JSON.parse(element.dataset.elements);
-    console.log(this.#target);
     this.#observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
@@ -42,25 +42,30 @@ class InfinitePagination {
     if (this.#loading) {
       return;
     }
-    this.#loading = true;
-    const url = new URL(this.#endpoint);
-    url.searchParams.set("_page", this.#page);
-    const comments = await fetchJSON(url.toString());
-    if (comment.length === 0) {
+    try {
+      this.#loading = true;
+      const url = new URL(this.#endpoint);
+      url.searchParams.set("_page", this.#page);
+      const comments = await fetchJSON(url.toString());
+      if (comment.length === 0) {
+        this.#observer.disconnect();
+        this.#loader.remove();
+        return;
+      }
+      for (const comment of comments) {
+        const commentElement = this.#template.content.cloneNode(true);
+        for (const [key, selector] of Object.entries(this.#elements)) {
+          commentElement.querySelector(selector).innerText = comment[key];
+        }
+        this.#target.append(commentElement);
+      }
+      this.#page++;
+      this.#loading = false;
+    } catch (e) {
+      this.#target.append(alertElement("Impossible de charger les contenus"));
       this.#observer.disconnect();
       this.#loader.remove();
-      return;
     }
-    for (const comment of comments) {
-      const commentElement = this.#template.content.cloneNode(true);
-      for (const [key, selector] of Object.entries(this.#elements)) {
-        commentElement.querySelector(selector).innerText = comment[key];
-        console.log({ key, selector });
-      }
-      this.#target.append(commentElement);
-    }
-    this.#page++;
-    this.#loading = false;
   }
 }
 
