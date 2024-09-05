@@ -1,7 +1,13 @@
 class ProductViewer {
+  /** @type {HTMLImageElement} */
   #mediumImage;
+  /** @type {HTMLImageElement} */
   #largeImage;
+  /** @type {string} */
+  #largeImageSrc;
+  /** @type {HTMLElement} */
   #thumbnailWrapper;
+  /** @type {HTMLElement} */
   #zoomElement;
 
   /**
@@ -14,6 +20,7 @@ class ProductViewer {
     this.#largeImage = element.querySelector(".js-image-large");
 
     const links = this.#thumbnailWrapper.querySelectorAll("a");
+    this.#largeImageSrc = links[0].getAttribute("href");
     for (const link of links) {
       link.addEventListener("click", this.#onThumbnailClick.bind(this));
     }
@@ -30,6 +37,7 @@ class ProductViewer {
     e.currentTarget.classList.add("active");
     const medium = e.currentTarget.dataset.medium;
     this.#mediumImage.src = medium;
+    this.#largeImageSrc = e.currentTarget.getAttribute("href");
   }
 
   /**
@@ -39,6 +47,7 @@ class ProductViewer {
   #onEnter(e) {
     this.#zoomElement.classList.add("active");
     const rect = this.#mediumImage.getBoundingClientRect();
+    this.#largeImage.setAttribute("src", this.#largeImageSrc);
     this.#zoomElement.style.setProperty("--left", `${rect.x + rect.width}px`);
   }
 
