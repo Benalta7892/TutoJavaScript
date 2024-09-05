@@ -54,4 +54,13 @@
   bottom: 20px;
   left: 50%;
   overflow: hidden;
+  border: solid 1px grey;
+  box-shadow: 0 0 10px rgba(128, 128, 128, 0.646);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.product_zoom.active {
+  opacity: 1;
 }
