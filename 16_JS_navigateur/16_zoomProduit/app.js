@@ -29,6 +29,7 @@ class ProductViewer {
     }
     this.#mediumImage.addEventListener("mouseenter", this.#onEnter.bind(this));
     this.#mediumImage.addEventListener("mouseleave", this.#onLeave.bind(this));
+    this.#mediumImage.addEventListener("mousemove", this.#onMove.bind(this));
     this.#largeImage.addEventListener("load", this.#updateRatio.bind(this));
   }
 
@@ -61,6 +62,18 @@ class ProductViewer {
    */
   #onLeave(e) {
     this.#zoomElement.classList.remove("active");
+  }
+
+  /**
+   *
+   * @param {PointerEvent} e
+   */
+  #onMove(e) {
+    this.#magnifier.style.setProperty(
+      "transform",
+      `translate3d(calc(${e.offsetX}px - 50%), calc(${e.offsetY}px - 50%), 0)`
+    );
+    console.log(e.offsetX / this.#mediumImage.width, e.offsetY / this.#mediumImage.height);
   }
 
   #updateRatio() {
