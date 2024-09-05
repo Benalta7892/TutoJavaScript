@@ -12,8 +12,9 @@ class InfinitePagination {
   #loader;
   /** @type {object} */
   #elements;
-  /** @type {boolean} */
+  /** @type {IntersectionObserver} */
   #observer;
+  /** @type {boolean} */
   #loading = false;
   /** @type {number} */
   #page = 1;
@@ -74,10 +75,23 @@ class InfinitePagination {
 }
 
 class FetchForm {
+  /** @type {string} */
+  #endpoint;
+  /** @type {HTMLTemplateElement} */
+  #template;
+  /** @type {HTMLElement} */
+  #target;
+  /** @type {object} */
+  #elements;
+
   /**
    * @param {HTMLFormElement} form
    */
   constructor(form) {
+    this.#endpoint = form.dataset.endpoint;
+    this.#template = document.querySelector(form.dataset.template);
+    this.#target = document.querySelector(form.dataset.target);
+    this.#elements = JSON.parse(form.dataset.elements);
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       this.#submitForm(e.currentTarget);
@@ -87,11 +101,17 @@ class FetchForm {
   /**
    * @param {HTMLFormElement} form
    */
-  #submitForm(form) {
+  async #submitForm(form) {
     const button = form.querySelector("button");
     button.setAttribute("disabled", "");
     try {
       const data = new FormData(form);
+      const result = await fetchJSON(this.#endpoint, {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(data)),
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(result);
     } catch (e) {}
   }
 }
