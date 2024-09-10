@@ -22,6 +22,10 @@ class CodeInput extends HTMLElement {
         </div>
         <input type="hidden" name"${name}" />
       </fieldset>`;
+    const inputs = this.querySelectorAll("input[type='text']");
+    inputs.forEach((input) => {
+      input.addEventListener("input", this.#onInput.bind(this));
+    });
   }
 
   /**
@@ -32,6 +36,10 @@ class CodeInput extends HTMLElement {
    * @param newValue Nouvelle valeur
    */
   attributeChangedCallback(name, oldValue, newValue) {}
+
+  #onInput(e) {
+    console.log(e);
+  }
 }
 
 customElements.define("code-input", CodeInput);
