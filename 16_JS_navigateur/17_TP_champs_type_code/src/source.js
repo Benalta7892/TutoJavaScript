@@ -52,7 +52,14 @@ class CodeInput extends HTMLElement {
    * @param oldValue Ancienne valeur
    * @param newValue Nouvelle valeur
    */
-  attributeChangedCallback(name, oldValue, newValue) {}
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === "value") {
+      const value = newValue ?? "";
+      this.#inputs.forEach((input, k) => {
+        input.value = value[k] ?? "";
+      });
+    }
+  }
 
   /**
    * @param {InputEvent} e
