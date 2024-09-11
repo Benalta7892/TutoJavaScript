@@ -98,6 +98,9 @@ class CodeInput extends HTMLElement {
     e.preventDefault();
     const index = this.#inputs.findIndex((input) => input === e.currentTarget);
     const text = e.clipboardData.getData("text").replaceAll(/\D/g, "");
+    if (text.length === 0) {
+      return;
+    }
     let lastInput;
     this.#inputs.slice(index).forEach((input, k) => {
       if (!text[k]) {
