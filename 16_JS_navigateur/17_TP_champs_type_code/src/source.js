@@ -54,11 +54,22 @@ class CodeInput extends HTMLElement {
    */
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "value") {
-      const value = newValue ?? "";
-      this.#inputs.forEach((input, k) => {
-        input.value = value[k] ?? "";
-      });
+      this.value = newValue;
     }
+  }
+
+  /**
+   * @param {string | null} str
+   */
+  set value(str) {
+    if (this.#inputs.length <= 0) {
+      return;
+    }
+    const value = str ?? "";
+    this.#inputs.forEach((input, k) => {
+      input.value = value[k] ?? "";
+    });
+    this.#updateHiddenInput();
   }
 
   /**
