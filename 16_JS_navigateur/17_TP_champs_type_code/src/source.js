@@ -3,6 +3,12 @@
  * Plus d'info : https://grafikart.fr/tutoriels/web-component-1201
  */
 class CodeInput extends HTMLElement {
+  /** @var {HTMLInputElement[]} */
+  #inputs = [];
+
+  /** @var {HTMLInputElement | null} */
+  #hiddenInput = null;
+
   static get observedAttributes() {
     return ["value"];
   }
@@ -20,11 +26,13 @@ class CodeInput extends HTMLElement {
             (_, k) => `<input type="text" inputmode="numeric" aria-label="Chiffre ${k}" pattern="[0-9]{1}" />`
           ).join("")}
         </div>
-        <input type="hidden" name"${name}" />
+        <input type="hidden" name="${name}" />
       </fieldset>`;
-    const inputs = this.querySelectorAll("input[type='text']");
-    inputs.forEach((input) => {
+    this.#hiddenInput = this.querySelector("input[type='hidden']");
+    this.#inputs = Array.from(this.querySelectorAll("input[type='text']"));
+    this.#inputs.forEach((input) => {
       input.addEventListener("input", this.#onInput.bind(this));
+      input.addEventListener("keydown", this.#onKeyDown.bind(this));
     });
   }
 
@@ -37,8 +45,41 @@ class CodeInput extends HTMLElement {
    */
   attributeChangedCallback(name, oldValue, newValue) {}
 
+  /**
+   * @param {InputEvent} e
+   */
   #onInput(e) {
-    console.log(e);
+    e.currentTarget.value = e.currentTarget.value.replaceAll(/\D/g, "").slice(0, 1);
+    this.#updateHiddenInput();
+  }
+
+  /**
+   * @param {KeyboardEvent} e
+   */
+  #onKeyDown(e) {
+    if (e.key.match(/\d/)) {
+      e.preventDefault();
+      e.currentTarget.value = e.key;
+      const nextInput = e.currentTarget.nextElementSibling;
+      if (nextInput) {
+        nextInput.focus();
+      }
+      this.#updateHiddenInput();
+    }
+
+    if (e.key === "Backspace" && e.currentTarget.value === "") {
+      const previousInput = e.currentTarget.previousElementSibling;
+      if (!previousInput) {
+        return;
+      }
+      previousInput.value = "";
+      previousInput.focus();
+      this.#updateHiddenInput();
+    }
+  }
+
+  #updateHiddenInput() {
+    this.#hiddenInput.value = this.#inputs.map((input) => input.value).join("");
   }
 }
 
