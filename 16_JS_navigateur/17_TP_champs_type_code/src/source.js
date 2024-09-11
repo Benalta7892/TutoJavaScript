@@ -39,6 +39,7 @@ class CodeInput extends HTMLElement {
     this.#hiddenInput = this.querySelector("input[type='hidden']");
     this.#inputs = Array.from(this.querySelectorAll("input[type='text']"));
     this.#inputs.forEach((input) => {
+      input.addEventListener("paste", this.#onPaste.bind(this));
       input.addEventListener("input", this.#onInput.bind(this));
       input.addEventListener("keydown", this.#onKeyDown.bind(this));
     });
@@ -88,6 +89,29 @@ class CodeInput extends HTMLElement {
 
   #updateHiddenInput() {
     this.#hiddenInput.value = this.#inputs.map((input) => input.value).join("");
+  }
+
+  /**
+   * @param {ClipboardEvent} e
+   */
+  #onPaste(e) {
+    e.preventDefault();
+    const index = this.#inputs.findIndex((input) => input === e.currentTarget);
+    const text = e.clipboardData.getData("text").replaceAll(/\D/g, "");
+    let lastInput;
+    this.#inputs.slice(index).forEach((input, k) => {
+      if (!text[k]) {
+        return;
+      }
+      input.value = text[k];
+      lastInput = input;
+    });
+    const nextAfterLastInput = lastInput.nextElementSibling;
+    if (nextAfterLastInput) {
+      nextAfterLastInput.focus();
+    } else {
+      lastInput.focus();
+    }
   }
 }
 
