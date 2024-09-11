@@ -17,16 +17,24 @@ class CodeInput extends HTMLElement {
     const legend = this.getAttribute("legend") ?? "Entrez votre code";
     const name = this.getAttribute("name") ?? "";
     const size = parseInt(this.getAttribute("size") ?? "6", 10);
+    const value = this.getAttribute("value") ?? "";
     this.innerHTML = `
       <fieldset>
         <legend>${legend}</legend>
         <div class="code-inputs">
           ${Array.from(
             { length: size },
-            (_, k) => `<input type="text" inputmode="numeric" aria-label="Chiffre ${k}" pattern="[0-9]{1}" />`
+            (_, k) => `<input
+            type="text"
+            inputmode="numeric"
+            aria-label="Chiffre ${k}"
+            pattern="[0-9]{1}"
+            value="${value.slice(k, k + 1)}"
+            required
+            />`
           ).join("")}
         </div>
-        <input type="hidden" name="${name}" />
+        <input type="hidden" name="${name}" value="${value}" />
       </fieldset>`;
     this.#hiddenInput = this.querySelector("input[type='hidden']");
     this.#inputs = Array.from(this.querySelectorAll("input[type='text']"));
