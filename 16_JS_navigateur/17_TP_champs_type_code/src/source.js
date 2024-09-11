@@ -115,6 +115,7 @@ class CodeInput extends HTMLElement {
     } else {
       lastInput.focus();
     }
+    this.#updateHiddenInput();
   }
 }
 
