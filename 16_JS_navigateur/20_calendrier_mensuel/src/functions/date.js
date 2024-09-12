@@ -1,6 +1,18 @@
 const weekStartsOn = 1;
 
 /**
+ * Renvoie un identifiant unique pour un jour
+ * @param {Date} date
+ * @returns {string}
+ */
+export function dayId(date) {
+  return `${date.getFullYear()}-${date.getMonth().toString().padStart(2, "0")}-${date
+    .getDate()
+    .toString()
+    .padStart(2, "0")}`;
+}
+
+/**
  * Renvoie la date en début de semaine
  * @param {Date} date
  * @returns {Date}

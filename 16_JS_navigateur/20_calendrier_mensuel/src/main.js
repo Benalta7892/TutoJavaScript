@@ -1,13 +1,17 @@
 import { Events } from "./data.js";
-import { addDays, daysBetween, endOfMonth, endOfWeek, startOfWeek } from "./functions/date.js";
+import { addDays, dayId, daysBetween, endOfMonth, endOfWeek, startOfWeek } from "./functions/date.js";
 
 /**
  * @typedef {{name: string, start: Date, end: Date, fullDay?: boolean}} CalendarEvent
  */
 
 const dayFormatter = new Intl.DateTimeFormat(undefined, { weekday: "long" });
+const timeFormatter = new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit" });
 
 class Calendar {
+  /** @type {Map<string, CalendarEvent[]>} */
+  #eventsMap = new Map();
+
   /**
    *
    * @param {HTMLElement} root // Element HTML dans lequel afficher le calendrier
@@ -16,12 +20,13 @@ class Calendar {
    * @param {number} year Année du calendrier
    */
   constructor(root, events, month, year) {
+    this.#fillEventsMap(events);
     const startOfMonth = new Date(year, month, 1, 0, 0, 0, 0);
     const start = startOfWeek(startOfMonth);
     const end = endOfWeek(endOfMonth(startOfMonth));
     const days = daysBetween(start, end);
     root.innerHTML = `
-    <table>
+    <table class="calendar">
       <thead>
         <tr>
           ${Array.from({ length: 7 }, (_, k) => `<th>${dayFormatter.format(addDays(start, k))}</th>`).join("")}
@@ -57,8 +62,46 @@ class Calendar {
       <div class="calendar_date ${isCurrentMonth ? "" : "calendar__date-diff"}">${date.getDate()}</div>
       <div class="calendar_events"></div>
     </div>`;
+    const container = td.querySelector(".calendar_events");
+    const idDate = dayId(date);
+    const events = this.#eventsMap.get(idDate) ?? [];
+    for (const event of events) {
+      // On est au début de l'événement sur plusieurs jours
+      if (event.fullDay && idDate === dayId(event.start)) {
+        container.insertAdjacentHTML(
+          "beforeend",
+          `<div class="calendar_event calendar_event-fullday">
+            ${event.name}
+          </div>`
+        );
+      }
+      if (event.fullDay) {
+        continue;
+      }
+      container.insertAdjacentHTML(
+        "beforeend",
+        `<div class="calendar_event calendar_event-hour">
+          <span>${timeFormatter.format(event.start)} - ${event.name}</span>
+        </div>`
+      );
+    }
     return td;
+  }
+
+  /**
+   * @param {CalendarEvent[]} events
+   */
+  #fillEventsMap(events) {
+    const sortedEvents = [...events].sort((a, b) => (a.start < b.start ? -1 : 1));
+    for (const event of sortedEvents) {
+      const days = daysBetween(event.start, event.end);
+      for (const day of days) {
+        const id = dayId(day);
+        this.#eventsMap.set(id, [...(this.#eventsMap.get(id) ?? []), event]);
+      }
+    }
   }
 }
 
-new Calendar(document.getElementById("app"), Events, new Date().getMonth(), new Date().getFullYear());
+const c = new Calendar(document.getElementById("app"), Events, new Date().getMonth(), new Date().getFullYear());
+console.log(c);
