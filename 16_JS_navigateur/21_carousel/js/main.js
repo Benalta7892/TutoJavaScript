@@ -17,12 +17,15 @@ class Carousel {
       options
     );
     this.children = [].slice.call(element.children);
+    let ratio = this.children.length / this.options.slidesVisible;
     let root = this.createDivWithClass("carousel");
     let container = this.createDivWithClass("carousel_container");
+    container.style.width = ratio * 100 + "%";
     root.appendChild(container);
     this, element.appendChild(root);
     this.children.forEach((child) => {
       let item = this.createDivWithClass("carousel_item");
+      item.style.width = 100 / this.options.slidesVisible / ratio + "%";
       item.appendChild(child);
       container.appendChild(item);
     });
