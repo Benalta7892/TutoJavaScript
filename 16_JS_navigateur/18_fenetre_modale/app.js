@@ -21,18 +21,21 @@ const closeModal = function (e) {
   if (modal === null) return;
   if (previouslyFocusedElement != null) previouslyFocusedElement.focus();
   e.preventDefault();
-  modal.style.display = "none";
-  modal.offsetWidth;
-  modal.style.display = null;
-  window.setTimeout(function () {
-    modal.style.display = "none";
-    modal = null;
-  }, 500);
+  // Animation-direction reversed
+  // modal.style.display = "none";
+  // modal.offsetWidth;
+  // modal.style.display = null;
   modal.setAttribute("aria-hidden", "true");
   modal.removeAttribute("aria-modal");
   modal.removeEventListener("click", closeModal);
   modal.querySelector(".js-modal-close").removeEventListener("click", closeModal);
   modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
+  const hideModal = function () {
+    modal.style.display = "none";
+    modal.removeEventListener("animationend", hideModal);
+    modal = null;
+  };
+  modal.addEventListener("animationend", hideModal);
 };
 
 const stopPropagation = function (e) {
