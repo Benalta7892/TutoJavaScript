@@ -21,7 +21,9 @@ class Carousel {
     let container = this.createDivWithClass("carousel_container");
     root.appendChild(container);
     this, element.appendChild(root);
-    debugger;
+    this.children.forEach(function (child) {
+      container.appendChild(child);
+    });
   }
 
   /**
