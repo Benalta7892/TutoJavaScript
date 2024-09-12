@@ -11,7 +11,7 @@ import {
 } from "./functions/date.js";
 
 /**
- * @typedef {{name: string, start: Date, end: Date, fullDay?: boolean}} CalendarEvent
+ * @typedef {{name: string, start: Date, end: Date, fullDay?: boolean, type?: string}} CalendarEvent
  */
 
 const dayFormatter = new Intl.DateTimeFormat(undefined, { weekday: "long" });
@@ -47,11 +47,14 @@ class Calendar {
     </table>`;
     const tbody = root.querySelector("tbody");
     let tr = document.createElement("tr");
+    /** @type {Map<CalendarEvent, number>} */
+    const positionMap = new Map();
     for (const day of days) {
-      tr.append(this.#buildCell(day, month));
+      tr.append(this.#buildCell(day, month, positionMap));
       if (day.getDay() === 0) {
         tbody.append(tr);
         tr = document.createElement("tr");
+        positionMap.clear();
       }
     }
   }
@@ -60,9 +63,23 @@ class Calendar {
    * Construit l'élément qui représente un jour
    * @param {Date} date
    * @param {number} month
+   * @param {Map<CalendarEvent, number>} positionMap
    * @returns {HTMLTableCellElement}
    */
-  #buildCell(date, month) {
+  #buildCell(date, month, positionMap) {
+    const getAvailablePosition = () => {
+      if (positionMap.size === 0) {
+        return 0;
+      }
+      const positions = Array.from(positionMap.values());
+      const max = Math.max(...positions);
+      for (let i = 0; i < max; i++) {
+        if (positions.includes(i)) {
+          return i;
+        }
+      }
+      return max + 1;
+    };
     const td = document.createElement("td");
     const isCurrentMonth = date.getMonth() === month;
 
@@ -74,27 +91,43 @@ class Calendar {
     const container = td.querySelector(".calendar_events");
     const idDate = dayId(date);
     const events = this.#eventsMap.get(idDate) ?? [];
+    const finishedEvents = [];
     for (const event of events) {
+      const classes = ["calendar_event"];
+      if (event.type) {
+        classes.push("calendar_event-" + event.type);
+      }
       // On est au début de l'événement sur plusieurs jours
       if (event.fullDay && (idDate === dayId(event.start) || date.getDay() === 1)) {
+        const position = getAvailablePosition();
+        positionMap.set(event, position);
         const days = diffInDays(minDates([event.end, endOfWeek(date)]), date);
+        classes.push("calendar_event-fullday");
         container.insertAdjacentHTML(
           "beforeend",
-          `<div class="calendar_event calendar_event-fullday" style="--days:${days}">
+          `<div class="${classes.join(" ")}" style="--days:${days}; --offset: ${position}">
             ${event.name}
           </div>`
         );
       }
-      if (event.fullDay) {
-        continue;
+
+      if (event.fullDay && idDate === dayId(event.end)) {
+        finishedEvents.push(event);
       }
-      container.insertAdjacentHTML(
-        "beforeend",
-        `<div class="calendar_event calendar_event-hour">
+      if (!event.fullDay) {
+        classes.push("calendar_event-hour");
+        container.insertAdjacentHTML(
+          "beforeend",
+          `<div class="${classes.join(" ")}">
           <span>${timeFormatter.format(event.start)} - ${event.name}</span>
         </div>`
-      );
+        );
+      }
     }
+    for (const event of finishedEvents) {
+      positionMap.delete(event);
+    }
+
     return td;
   }
 
