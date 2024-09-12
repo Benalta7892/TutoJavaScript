@@ -22,6 +22,7 @@ html {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
+  animation: fadeIn 0.3s both;
 }
 
 .modal-wrapper {
@@ -31,4 +32,23 @@ html {
   max-height: calc(100vh - 20px);
   padding: 20px;
   background: #fff;
+  animation: slideFromTop 0.5s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromTop {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
 }
