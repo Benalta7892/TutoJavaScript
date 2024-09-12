@@ -1,3 +1,7 @@
+const ratio = 0.6;
+const spies = document.querySelectorAll("[data-spy]");
+let observer = null;
+
 /**
  * @param {HTMLElement} elem
  */
@@ -23,11 +27,23 @@ const callback = function (entries, observer) {
   });
 };
 
-const spies = document.querySelectorAll("[data-spy]");
+/**
+ * @param {NodeListOf.<Element>} elems
+ */
+const observe = function (elems) {
+  if (observer !== null) {
+    elems.forEach((elem) => observer.unobserve(elem));
+  }
+  const y = Math.round(window.innerHeight * ratio);
+  observer = new IntersectionObserver(callback, {
+    rootMargin: `-${window.innerHeight - y - 1}px 0px -${y}px 0px`,
+  });
+  spies.forEach((elem) => observer.observe(elem));
+};
 
 if (spies.length > 0) {
-  const observer = new IntersectionObserver(callback, {});
-  spies.forEach(function (spy) {
-    observer.observe(spy);
+  observe(spies);
+  window.addEventListener("resize", function () {
+    observe(spies);
   });
 }

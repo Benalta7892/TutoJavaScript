@@ -14,6 +14,7 @@
     <?php endfor ?>
     <a href="constact.html">Contact</a>
   </nav>
+  <hr>
   <main>
     <?php for ($i = 1; $i <= 4; $i++): ?>
       <section id="section<?= $i ?>" data-spy>
