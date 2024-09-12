@@ -50,7 +50,13 @@ class Calendar {
    */
   #buildCell(date, month) {
     const td = document.createElement("td");
-    td.innerText = date.getDate().toString();
+    const isCurrentMonth = date.getMonth() === month;
+
+    td.innerHTML = `
+    <div class="calendar_cell">
+      <div class="calendar_date ${isCurrentMonth ? "" : "calendar__date-diff"}">${date.getDate()}</div>
+      <div class="calendar_events"></div>
+    </div>`;
     return td;
   }
 }
