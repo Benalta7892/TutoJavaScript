@@ -35,6 +35,14 @@ html {
   animation: slideFromTop 0.5s both;
 }
 
+.modal[aria-hidden="true"] {
+  animation-name: fadeOut;
+}
+
+.modal[aria-hidden="true"] .modal-wrapper {
+  animation-name: slideFromBottom;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -44,11 +52,29 @@ html {
   }
 }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes slideFromTop {
   from {
     transform: translateY(-50%);
   }
   to {
     transform: translateY(0%);
+  }
+}
+
+@keyframes slideFromBottom {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(50%);
   }
 }
