@@ -16,6 +16,19 @@ class Carousel {
       },
       options
     );
+    let root = this.createDivWithClass("carousel");
+    this, element.appendChild(root);
+  }
+
+  /**
+   * Crée une div et ajoute la classe className
+   * @param {string} className
+   * @returns {HTMLElement}
+   */
+  createDivWithClass(className) {
+    let div = document.createElement("div");
+    div.setAttribute("class", className);
+    return div;
   }
 }
 
