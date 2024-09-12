@@ -18,11 +18,10 @@ const activate = function (elem) {
 
 /**
  * @param {IntersectionObserverEntry[]} entries
- * @param {IntersectionObserver} observer
  */
-const callback = function (entries, observer) {
+const callback = function (entries) {
   entries.forEach(function (entry) {
-    if (entry.intersectionRatio > 0) {
+    if (entry.isIntersecting) {
       activate(entry.target);
     }
   });
