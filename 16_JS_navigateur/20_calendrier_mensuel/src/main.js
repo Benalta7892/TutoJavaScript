@@ -1,5 +1,14 @@
 import { Events } from "./data.js";
-import { addDays, dayId, daysBetween, endOfMonth, endOfWeek, startOfWeek } from "./functions/date.js";
+import {
+  addDays,
+  dayId,
+  daysBetween,
+  diffInDays,
+  endOfMonth,
+  endOfWeek,
+  minDates,
+  startOfWeek,
+} from "./functions/date.js";
 
 /**
  * @typedef {{name: string, start: Date, end: Date, fullDay?: boolean}} CalendarEvent
@@ -67,10 +76,11 @@ class Calendar {
     const events = this.#eventsMap.get(idDate) ?? [];
     for (const event of events) {
       // On est au début de l'événement sur plusieurs jours
-      if (event.fullDay && idDate === dayId(event.start)) {
+      if (event.fullDay && (idDate === dayId(event.start) || date.getDay() === 1)) {
+        const days = diffInDays(minDates([event.end, endOfWeek(date)]), date);
         container.insertAdjacentHTML(
           "beforeend",
-          `<div class="calendar_event calendar_event-fullday">
+          `<div class="calendar_event calendar_event-fullday" style="--days:${days}">
             ${event.name}
           </div>`
         );

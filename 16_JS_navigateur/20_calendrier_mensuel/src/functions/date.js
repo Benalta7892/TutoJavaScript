@@ -1,5 +1,7 @@
 const weekStartsOn = 1;
 
+const dayMs = 86400000;
+
 /**
  * Renvoie un identifiant unique pour un jour
  * @param {Date} date
@@ -83,4 +85,35 @@ export function daysBetween(start, end) {
     cursor = addDays(cursor, 1);
   }
   return days;
+}
+
+/**
+ * Trouve le nombre de jours (calendrier) entre 2 dates
+ * @param {Date} end
+ * @param {Date} start
+ * @returns {number}
+ */
+export function diffInDays(end, start) {
+  const b = new Date(end);
+  b.setHours(23, 59, 59, 999);
+  const a = new Date(start);
+  a.setHours(0, 0, 0, 0);
+  return Math.round((b.getTime() - a.getTime()) / dayMs);
+}
+
+/**
+ * Trouve la date la plus loin dans le temps
+ * @param {Date[]} dates
+ */
+export function minDates(dates) {
+  if (dates.length === 0) {
+    throw new Error("Impossible de trouver le minimum sans dates");
+  }
+  let min = dates[0];
+  for (const date of dates) {
+    if (date < min) {
+      min = date;
+    }
+  }
+  return min;
 }
