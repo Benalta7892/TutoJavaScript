@@ -1,4 +1,3 @@
-// @ts-nocheck
 class Carousel {
   /**
    *
@@ -7,7 +6,17 @@ class Carousel {
    * @param {Object} options.slidesToScroll Nombre d'éléments à faire défiler
    * @param {Object} options.slidesVisible Nombre d'éléments visible dans un slide
    */
-  constructor(element, options = {}) {}
+  constructor(element, options = {}) {
+    this.element = element;
+    this.options = Object.assign(
+      {},
+      {
+        slidesToScroll: 1,
+        slidesVisible: 1,
+      },
+      options
+    );
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
