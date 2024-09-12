@@ -16,8 +16,12 @@ class Carousel {
       },
       options
     );
+    this.children = [].slice.call(element.children);
     let root = this.createDivWithClass("carousel");
+    let container = this.createDivWithClass("carousel_container");
+    root.appendChild(container);
     this, element.appendChild(root);
+    debugger;
   }
 
   /**
