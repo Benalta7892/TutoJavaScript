@@ -19,7 +19,7 @@ class Calendar {
     const startOfMonth = new Date(year, month, 1, 0, 0, 0, 0);
     const start = startOfWeek(startOfMonth);
     const end = endOfWeek(endOfMonth(startOfMonth));
-    console.log(daysBetween(start, end));
+    const days = daysBetween(start, end);
     root.innerHTML = `
     <table>
       <thead>
@@ -31,6 +31,27 @@ class Calendar {
 
       </tbody>
     </table>`;
+    const tbody = root.querySelector("tbody");
+    let tr = document.createElement("tr");
+    for (const day of days) {
+      tr.append(this.#buildCell(day, month));
+      if (day.getDay() === 0) {
+        tbody.append(tr);
+        tr = document.createElement("tr");
+      }
+    }
+  }
+
+  /**
+   * Construit l'élément qui représente un jour
+   * @param {Date} date
+   * @param {number} month
+   * @returns {HTMLTableCellElement}
+   */
+  #buildCell(date, month) {
+    const td = document.createElement("td");
+    td.innerText = date.getDate().toString();
+    return td;
   }
 }
 
