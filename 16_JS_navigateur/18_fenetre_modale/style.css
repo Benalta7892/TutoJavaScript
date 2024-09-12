@@ -36,13 +36,13 @@ html {
 }
 
 .modal[aria-hidden="true"] {
-  /* animation-name: fadeOut; */
-  animation-direction: reverse;
+  animation-name: fadeOut;
+  /* animation-direction: reverse; */
 }
 
 .modal[aria-hidden="true"] .modal-wrapper {
-  /* animation-name: slideFromBottom; */
-  animation-direction: reverse;
+  animation-name: slideFromBottom;
+  /* animation-direction: reverse; */
 }
 
 @keyframes fadeIn {
