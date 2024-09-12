@@ -41,9 +41,7 @@ class Calendar {
           ${Array.from({ length: 7 }, (_, k) => `<th>${dayFormatter.format(addDays(start, k))}</th>`).join("")}
         </tr>
       </thead>
-      <tbody>
-
-      </tbody>
+      <tbody></tbody>
     </table>`;
     const tbody = root.querySelector("tbody");
     let tr = document.createElement("tr");
@@ -74,7 +72,7 @@ class Calendar {
       const positions = Array.from(positionMap.values());
       const max = Math.max(...positions);
       for (let i = 0; i < max; i++) {
-        if (positions.includes(i)) {
+        if (!positions.includes(i)) {
           return i;
         }
       }
@@ -85,7 +83,7 @@ class Calendar {
 
     td.innerHTML = `
     <div class="calendar_cell">
-      <div class="calendar_date ${isCurrentMonth ? "" : "calendar__date-diff"}">${date.getDate()}</div>
+      <div class="calendar_date ${isCurrentMonth ? "" : "calendar_date-diff"}">${date.getDate()}</div>
       <div class="calendar_events"></div>
     </div>`;
     const container = td.querySelector(".calendar_events");
