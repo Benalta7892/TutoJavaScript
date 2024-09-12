@@ -1,5 +1,5 @@
 import { Events } from "./data.js";
-import { addDays, endOfMonth, endOfWeek, startOfWeek } from "./functions/date.js";
+import { addDays, daysBetween, endOfMonth, endOfWeek, startOfWeek } from "./functions/date.js";
 
 /**
  * @typedef {{name: string, start: Date, end: Date, fullDay?: boolean}} CalendarEvent
@@ -19,6 +19,7 @@ class Calendar {
     const startOfMonth = new Date(year, month, 1, 0, 0, 0, 0);
     const start = startOfWeek(startOfMonth);
     const end = endOfWeek(endOfMonth(startOfMonth));
+    console.log(daysBetween(start, end));
     root.innerHTML = `
     <table>
       <thead>
@@ -33,4 +34,4 @@ class Calendar {
   }
 }
 
-new Calendar(document.getElementById("app"), Events, new Date().getMonth() + 1, new Date().getFullYear());
+new Calendar(document.getElementById("app"), Events, new Date().getMonth(), new Date().getFullYear());
