@@ -21,6 +21,9 @@ const closeModal = function (e) {
   if (modal === null) return;
   if (previouslyFocusedElement != null) previouslyFocusedElement.focus();
   e.preventDefault();
+  modal.style.display = "none";
+  modal.offsetWidth;
+  modal.style.display = null;
   window.setTimeout(function () {
     modal.style.display = "none";
     modal = null;
