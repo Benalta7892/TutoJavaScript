@@ -1,5 +1,5 @@
 import { Events } from "./data.js";
-import { startOfWeek } from "./functions/date.js";
+import { addDays, endOfMonth, endOfWeek, startOfWeek } from "./functions/date.js";
 
 /**
  * @typedef {{name: string, start: Date, end: Date, fullDay?: boolean}} CalendarEvent
@@ -16,13 +16,15 @@ class Calendar {
    * @param {number} year Année du calendrier
    */
   constructor(root, events, month, year) {
-    const start = startOfWeek(new Date(year, month, 1, 0, 0, 0, 0));
+    const startOfMonth = new Date(year, month, 1, 0, 0, 0, 0);
+    const start = startOfWeek(startOfMonth);
+    const end = endOfWeek(endOfMonth(startOfMonth));
     root.innerHTML = `
     <table>
       <thead>
-        <th>
-
-        </th>
+        <tr>
+          ${Array.from({ length: 7 }, (_, k) => `<th>${dayFormatter.format(addDays(start, k))}</th>`).join("")}
+        </tr>
       </thead>
       <tbody>
 
@@ -31,4 +33,4 @@ class Calendar {
   }
 }
 
-new Calendar(document.getElementById("app"), Events, new Date().getMonth(), new Date().getFullYear());
+new Calendar(document.getElementById("app"), Events, new Date().getMonth() + 1, new Date().getFullYear());
