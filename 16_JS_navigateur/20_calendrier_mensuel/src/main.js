@@ -101,7 +101,14 @@ class Calendar {
       if (event.fullDay && (idDate === dayId(event.start) || date.getDay() === 1)) {
         const position = getAvailablePosition();
         positionMap.set(event, position);
-        const days = diffInDays(minDates([event.end, endOfWeek(date)]), date);
+        const endDate = minDates([event.end, endOfWeek(date)]);
+        const days = diffInDays(endDate, date);
+        if (idDate !== dayId(event.start)) {
+          classes.push("calendar_event-overflow-left");
+        }
+        if (endDate !== event.end) {
+          classes.push("calendar_event-overflow-right");
+        }
         classes.push("calendar_event-fullday");
         container.insertAdjacentHTML(
           "beforeend",
@@ -124,6 +131,9 @@ class Calendar {
         );
       }
     }
+
+    container.style.setProperty("--offset", (Math.max(...positionMap.values()) + 1).toString());
+
     for (const event of finishedEvents) {
       positionMap.delete(event);
     }
