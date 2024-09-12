@@ -1,5 +1,6 @@
 const ratio = 0.6;
 const spies = document.querySelectorAll("[data-spy]");
+
 let observer = null;
 
 /**
@@ -41,9 +42,35 @@ const observe = function (elems) {
   spies.forEach((elem) => observer.observe(elem));
 };
 
+/**
+ *
+ * @param {Function} callback
+ * @param {number} delay
+ * @returns {Function}
+ */
+const debounce = function (callback, delay) {
+  let timer;
+  return function () {
+    let args = arguments;
+    let context = this;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      callback.apply(context, args);
+    }, delay);
+  };
+};
+
 if (spies.length > 0) {
   observe(spies);
-  window.addEventListener("resize", function () {
-    observe(spies);
-  });
+  let windowH = window.innerHeight;
+  window.addEventListener(
+    "resize",
+    debounce(function () {
+      if (window.innerHeight !== windowH) {
+        observe(spies);
+        console.log("test");
+        windowH = window.innerHeight;
+      }
+    }, 500)
+  );
 }
