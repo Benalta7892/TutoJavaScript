@@ -32,6 +32,9 @@ class Carousel {
       },
       options
     );
+    if (this.options.loop && this.options.infinite) {
+      throw new Error("Un carousel ne peut être à la fois en boucle et infini");
+    }
     let children = [].slice.call(element.children);
     this.isMobile = false;
     this.currentItem = 0;
@@ -255,6 +258,7 @@ let onReady = function () {
     slidesVisible: 3,
     slidesToScroll: 1,
     loop: true,
+    // infinite: true,
     pagination: true,
   });
 
