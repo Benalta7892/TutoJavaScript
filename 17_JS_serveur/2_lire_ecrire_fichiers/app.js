@@ -1,5 +1,6 @@
-import { open } from "node:fs/promises";
+import { watch } from "node:fs/promises";
 
-const file = await open("demo.txt", "a");
-file.write("Hello World");
-file.close();
+const watcher = watch("./");
+for await (const event of watcher) {
+  console.log(event);
+}
