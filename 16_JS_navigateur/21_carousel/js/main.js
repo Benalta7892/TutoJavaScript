@@ -16,6 +16,7 @@ class Carousel {
    *
    */
   constructor(element, options = {}) {
+    // Initialisation des variables de la classe Carousel
     this.element = element;
     this.options = Object.assign(
       {},
@@ -29,11 +30,14 @@ class Carousel {
     let children = [].slice.call(element.children);
     this.isMobile = false;
     this.currentItem = 0;
+    this.moveCallbacks = [];
+
+    // Création de la structure du carousel - Modification du DOM
     this.root = this.createDivWithClass("carousel");
     this.container = this.createDivWithClass("carousel_container");
+    this.root.setAttribute("tabindex", "0");
     this.root.appendChild(this.container);
     this.element.appendChild(this.root);
-    this.moveCallbacks = [];
     this.items = children.map((child) => {
       let item = this.createDivWithClass("carousel_item");
       item.appendChild(child);
@@ -42,9 +46,18 @@ class Carousel {
     });
     this.setStyle();
     this.createNavigation();
+
+    // Evenements
     this.moveCallbacks.forEach((cb) => cb(0));
     this.onWindowResize();
     window.addEventListener("resize", this.onWindowResize.bind(this));
+    this.root.addEventListener("keyup", (e) => {
+      if (e.key === "ArrowRight") {
+        this.next();
+      } else if (e.key === "ArrowLeft") {
+        this.prev();
+      }
+    });
   }
 
   /**
