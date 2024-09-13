@@ -1,3 +1,79 @@
+/**
+ * Permet de rajouter la navigation tactile au carousel
+ */
+class CarouselTouchPlugin {
+  /**
+   *
+   * @param {carousel} carousel
+   */
+  constructor(carousel) {
+    carousel.container.addEventListener("dragstart", (e) => e.preventDefault());
+    carousel.container.addEventListener("mousedown", this.startDrag.bind(this));
+    carousel.container.addEventListener("touchstart", this.startDrag.bind(this), { passive: true });
+    window.addEventListener("mousemove", this.drag.bind(this));
+    window.addEventListener("touchmove", this.drag.bind(this));
+    window.addEventListener("touchend", this.endDrag.bind(this));
+    window.addEventListener("mouseup", this.endDrag.bind(this));
+    window.addEventListener("touchcancel", this.endDrag.bind(this));
+
+    this.carousel = carousel;
+  }
+
+  /**
+   * Démarre le déplacement au touché
+   * @param {MouseEvent|TouchEvent} e
+   */
+  startDrag(e) {
+    if (e.touches) {
+      if (e.touches.length > 1) {
+        return;
+      } else {
+        e = e.touches[0];
+      }
+    }
+    this.origin = { x: e.screenX, y: e.screenY };
+    this.width = this.carousel.containerWidth;
+    this.carousel.disableTransition();
+  }
+
+  /**
+   * Déplacement
+   * @param {MouseEvent|TouchEvent} e
+   */
+  drag(e) {
+    if (this.origin) {
+      let point = e.touches ? e.touches[0] : e;
+      let translate = { x: point.screenX - this.origin.x, y: point.screenY - this.origin.y };
+      if (e.touches && Math.abs(translate.x) > Math.abs(translate.y)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      let baseTranslate = (this.carousel.currentItem * -100) / this.carousel.items.length;
+      this.lastTranslate = translate;
+      this.carousel.translate(baseTranslate + (100 * translate.x) / this.width);
+    }
+  }
+
+  /**
+   * Fin du déplacement
+   * @param {MouseEvent|TouchEvent} e
+   */
+  endDrag(e) {
+    if (this.origin && this.lastTranslate) {
+      this.carousel.enableTransition();
+      if (Math.abs(this.lastTranslate.x / this.carousel.carouselWidth) > 0.2) {
+        if (this.lastTranslate.x < 0) {
+          this.carousel.next();
+        } else {
+          this.carousel.prev();
+        }
+      } else {
+        this.carousel.gotoItem(this.carousel.currentItem);
+      }
+    }
+    this.origin = null;
+  }
+}
 class Carousel {
   /**
    * This callback type is called `requestCallback` and is displayed as a global symbol.
@@ -62,7 +138,7 @@ class Carousel {
         ...this.items,
         ...this.items.slice(0, this.offset).map((item) => item.cloneNode(true)),
       ];
-      this.goToItem(this.offset, false);
+      this.gotoItem(this.offset, false);
     }
     this.items.forEach((item) => this.container.appendChild(item));
     this.setStyle();
@@ -87,6 +163,7 @@ class Carousel {
     if (this.options.infinite) {
       this.container.addEventListener("transitionend", this.resetInfinite.bind(this));
     }
+    new CarouselTouchPlugin(this);
   }
 
   /**
@@ -134,7 +211,7 @@ class Carousel {
     this.root.appendChild(pagination);
     for (let i = 0; i < this.items.length - 2 * this.offset; i = i + this.options.slidesToScroll) {
       let button = this.createDivWithClass("carousel_pagination_button");
-      button.addEventListener("click", () => this.goToItem(i + this.offset));
+      button.addEventListener("click", () => this.gotoItem(i + this.offset));
       pagination.appendChild(button);
       buttons.push(button);
     }
@@ -148,26 +225,30 @@ class Carousel {
     });
   }
 
+  translate(percent) {
+    this.container.style.transform = "translate3d(" + percent + "%, 0, 0)";
+  }
+
   /**
    * Déplace le carousel vers l'élément suivant
    */
   next() {
-    this.goToItem(this.currentItem + this.slidesToScroll);
+    this.gotoItem(this.currentItem + this.slidesToScroll);
   }
 
   /**
    * Déplace le carousel vers l'élément précédent
    */
   prev() {
-    this.goToItem(this.currentItem - this.slidesToScroll);
+    this.gotoItem(this.currentItem - this.slidesToScroll);
   }
 
   /**
    * Déplace le carousel vers l'élément ciblé
    * @param {number} index
-   * @param {boolean} [animation=true]
+   * @param {boolean} [animation = true]
    */
-  goToItem(index, animation = true) {
+  gotoItem(index, animation = true) {
     if (index < 0) {
       if (this.options.loop) {
         index = this.items.length - this.slidesVisible;
@@ -186,12 +267,12 @@ class Carousel {
     }
     let translateX = (index * -100) / this.items.length;
     if (animation === false) {
-      this.container.style.transition = "none";
+      this.disableTransition();
     }
-    this.container.style.transform = "translate3d(" + translateX + "%, 0, 0)";
+    this.translate(translateX);
     this.container.offsetHeight; // Force le repaint
     if (animation === false) {
-      this.container.style.transition = "";
+      this.enableTransition();
     }
     this.currentItem = index;
     this.moveCallbacks.forEach((cb) => cb(index));
@@ -202,9 +283,9 @@ class Carousel {
    */
   resetInfinite() {
     if (this.currentItem <= this.options.slidesToScroll) {
-      this.goToItem(this.currentItem + (this.items.length - 2 * this.offset), false);
+      this.gotoItem(this.currentItem + (this.items.length - 2 * this.offset), false);
     } else if (this.currentItem >= this.items.length - this.offset) {
-      this.goToItem(this.currentItem - (this.items.length - 2 * this.offset), false);
+      this.gotoItem(this.currentItem - (this.items.length - 2 * this.offset), false);
     }
   }
 
@@ -236,6 +317,14 @@ class Carousel {
     return div;
   }
 
+  disableTransition() {
+    this.container.style.transition = "none";
+  }
+
+  enableTransition() {
+    this.container.style.transition = "";
+  }
+
   /**
    * Retourne le nombre d'éléments à faire défiler en fonction de la taille de l'écran (responsive)
    * @returns {number}
@@ -250,6 +339,21 @@ class Carousel {
    */
   get slidesVisible() {
     return this.isMobile ? 1 : this.options.slidesVisible;
+  }
+
+  /**
+   * Retourne la largeur d'un élément du carousel
+   * @returns {number}
+   */
+  get containerWidth() {
+    return this.container.offsetWidth;
+  }
+
+  /**
+   * @returns {number}
+   */
+  get carouselWidth() {
+    return this.root.offsetWidth;
   }
 }
 
