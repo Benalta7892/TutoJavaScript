@@ -36,6 +36,7 @@ class Carousel {
     this.isMobile = false;
     this.currentItem = 0;
     this.moveCallbacks = [];
+    this.offset = 0;
 
     // Création de la structure du carousel - Modification du DOM
     this.root = this.createDivWithClass("carousel");
@@ -125,14 +126,15 @@ class Carousel {
     let pagination = this.createDivWithClass("carousel_pagination");
     let buttons = [];
     this.root.appendChild(pagination);
-    for (let i = 0; i < this.items.length; i = i + this.options.slidesToScroll) {
+    for (let i = 0; i < this.items.length - 2 * this.offset; i = i + this.options.slidesToScroll) {
       let button = this.createDivWithClass("carousel_pagination_button");
-      button.addEventListener("click", () => this.goToItem(i));
+      button.addEventListener("click", () => this.goToItem(i + this.offset));
       pagination.appendChild(button);
       buttons.push(button);
     }
     this.onMove((index) => {
-      let activeButton = buttons[Math.floor(index / this.options.slidesToScroll)];
+      let count = this.items.length - 2 * this.offset;
+      let activeButton = buttons[Math.floor(((index - this.offset) % count) / this.options.slidesToScroll)];
       if (activeButton) {
         buttons.forEach((button) => button.classList.remove("carousel_pagination_button-active"));
         activeButton.classList.add("carousel_pagination_button-active");
@@ -250,12 +252,14 @@ let onReady = function () {
     slidesVisible: 2,
     slidesToScroll: 2,
     loop: true,
+    pagination: true,
   });
 
   new Carousel(document.querySelector("#carousel2"), {
     slidesVisible: 2,
     slidesToScroll: 2,
     infinite: true,
+    pagination: true,
   });
 
   new Carousel(document.querySelector("#carousel3"));
