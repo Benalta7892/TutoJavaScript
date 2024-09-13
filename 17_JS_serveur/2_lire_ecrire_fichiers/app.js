@@ -1,5 +1,5 @@
-import { writeFile } from "node:fs/promises";
+import { open } from "node:fs/promises";
 
-await writeFile("demo.txt", "Bonjour les gens", {
-  flag: "a",
-});
+const file = await open("demo.txt", "a");
+file.write("Hello World");
+file.close();
