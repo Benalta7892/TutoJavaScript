@@ -27,6 +27,7 @@ class Carousel {
       options
     );
     let children = [].slice.call(element.children);
+    this.isMobile = false;
     this.currentItem = 0;
     this.root = this.createDivWithClass("carousel");
     this.container = this.createDivWithClass("carousel_container");
@@ -42,15 +43,17 @@ class Carousel {
     this.setStyle();
     this.createNavigation();
     this.moveCallbacks.forEach((cb) => cb(0));
+    this.onWindowResize();
+    window.addEventListener("resize", this.onWindowResize.bind(this));
   }
 
   /**
    * Applique les bonnes dimensions aux éléments du carousel
    */
   setStyle() {
-    let ratio = this.items.length / this.options.slidesVisible;
+    let ratio = this.items.length / this.slidesVisible;
     this.container.style.width = ratio * 100 + "%";
-    this.items.forEach((item) => (item.style.width = 100 / this.options.slidesVisible / ratio + "%"));
+    this.items.forEach((item) => (item.style.width = 100 / this.slidesVisible / ratio + "%"));
   }
 
   createNavigation() {
@@ -69,7 +72,7 @@ class Carousel {
       } else {
         prevButton.classList.remove("carousel_prev-hidden");
       }
-      if (this.items[this.currentItem + this.options.slidesVisible] === undefined) {
+      if (this.items[this.currentItem + this.slidesVisible] === undefined) {
         nextButton.classList.add("carousel_next-hidden");
       } else {
         nextButton.classList.remove("carousel_next-hidden");
@@ -78,11 +81,11 @@ class Carousel {
   }
 
   next() {
-    this.goToItem(this.currentItem + this.options.slidesToScroll);
+    this.goToItem(this.currentItem + this.slidesToScroll);
   }
 
   prev() {
-    this.goToItem(this.currentItem - this.options.slidesToScroll);
+    this.goToItem(this.currentItem - this.slidesToScroll);
   }
 
   /**
@@ -112,6 +115,15 @@ class Carousel {
     this.moveCallbacks.push(cb);
   }
 
+  onWindowResize() {
+    let mobile = window.innerWidth < 800;
+    if (mobile !== this.isMobile) {
+      this.isMobile = mobile;
+      this.setStyle();
+      this.moveCallbacks.forEach((cb) => cb(this.currentItem));
+    }
+  }
+
   /**
    * Crée une div et ajoute la classe className
    * @param {string} className
@@ -121,6 +133,22 @@ class Carousel {
     let div = document.createElement("div");
     div.setAttribute("class", className);
     return div;
+  }
+
+  /**
+   * Retourne le nombre d'éléments à faire défiler en fonction de la taille de l'écran (responsive)
+   * @returns {number}
+   */
+  get slidesToScroll() {
+    return this.isMobile ? 1 : this.options.slidesToScroll;
+  }
+
+  /**
+   * Retourne le nombre d'éléments visibles en fonction de la taille de l'écran (responsive)
+   * @returns {number}
+   */
+  get slidesVisible() {
+    return this.isMobile ? 1 : this.options.slidesVisible;
   }
 }
 
