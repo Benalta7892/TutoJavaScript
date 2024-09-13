@@ -1,6 +1,4 @@
-import fs from "node:fs";
+import { readFile } from "node:fs/promises";
 
-const content = fs.readFile("demo.txt", { encoding: "utf8" }, function (err, content) {
-  console.log(content);
-});
-console.log("Hello");
+const content = await readFile("demo.txt", { encoding: "utf8" });
+console.log(content);
