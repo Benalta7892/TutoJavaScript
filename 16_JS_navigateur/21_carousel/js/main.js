@@ -50,7 +50,10 @@ class Carousel {
       return item;
     });
     if (this.options.infinite) {
-      this.offset = this.options.slidesVisible * 2;
+      this.offset = this.options.slidesVisible + this.options.slidesToScroll;
+      if (this.offset > children.length) {
+        console.log("Vous n'avez pas assez d'éléments dans le carousel", element);
+      }
       this.items = [
         ...this.items.slice(this.items.length - this.offset).map((item) => item.cloneNode(true)),
         ...this.items,
@@ -249,15 +252,15 @@ class Carousel {
 
 let onReady = function () {
   new Carousel(document.querySelector("#carousel1"), {
-    slidesVisible: 2,
-    slidesToScroll: 2,
+    slidesVisible: 3,
+    slidesToScroll: 1,
     loop: true,
     pagination: true,
   });
 
   new Carousel(document.querySelector("#carousel2"), {
-    slidesVisible: 2,
-    slidesToScroll: 2,
+    slidesVisible: 3,
+    slidesToScroll: 3,
     infinite: true,
     pagination: true,
   });
