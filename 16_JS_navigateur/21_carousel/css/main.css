@@ -62,10 +62,9 @@ CAROUSEL
  */
 .carousel {
   position: relative;
-  overflow: hidden;
 }
 
-.carousel__container {
+.carousel_container {
   transition: transform 0.3s;
   transform: translate3d(0, 0, 0);
 }
@@ -80,8 +79,8 @@ CAROUSEL
   float: left;
 }
 
-.carousel__next,
-.carousel__prev {
+.carousel_next,
+.carousel_prev {
   position: absolute;
   width: 40px;
   height: 40px;
@@ -96,12 +95,12 @@ CAROUSEL
   transition: transform 0.3s, opacity 0.3s;
 }
 
-.carousel__next:hover,
-.carousel__prev:hover {
+.carousel_next:hover,
+.carousel_prev:hover {
   transform: scale(1.2);
 }
 
-.carousel__prev {
+.carousel_prev {
   background-image: url(left.svg);
   right: auto;
   left: -20px;
