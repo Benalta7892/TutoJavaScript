@@ -52,9 +52,9 @@ class Carousel {
     this.onWindowResize();
     window.addEventListener("resize", this.onWindowResize.bind(this));
     this.root.addEventListener("keyup", (e) => {
-      if (e.key === "ArrowRight") {
+      if (e.key === "ArrowRight" || e.key === "Right") {
         this.next();
-      } else if (e.key === "ArrowLeft") {
+      } else if (e.key === "ArrowLeft" || e.key === "Left") {
         this.prev();
       }
     });
@@ -107,12 +107,20 @@ class Carousel {
    */
   goToItem(index) {
     if (index < 0) {
-      index = this.items.length - this.options.slidesVisible;
+      if (this.options.loop) {
+        index = this.items.length - this.slidesVisible;
+      } else {
+        return;
+      }
     } else if (
       index >= this.items.length ||
-      (this.items[this.currentItem + this.options.slidesVisible] === undefined && index > this.currentItem)
+      (this.items[this.currentItem + this.slidesVisible] === undefined && index > this.currentItem)
     ) {
-      index = 0;
+      if (this.options.loop) {
+        index = 0;
+      } else {
+        return;
+      }
     }
     let translateX = (index * -100) / this.items.length;
     this.container.style.transform = "translate3d(" + translateX + "%, 0, 0)";
