@@ -1,10 +1,19 @@
 class Carousel {
   /**
+   * This callback type is called `requestCallback` and is displayed as a global symbol.
+   *
+   * @callback moveCallback
+   * @param {number} index
+   */
+
+  /**
    *
    * @param {HTMLElement} element
    * @param {Object} options
-   * @param {Object} options.slidesToScroll Nombre d'éléments à faire défiler
-   * @param {Object} options.slidesVisible Nombre d'éléments visible dans un slide
+   * @param {Object} [options.slidesToScroll=1] Nombre d'éléments à faire défiler
+   * @param {Object} [options.slidesVisible=1] Nombre d'éléments visible dans un slide
+   * @param {boolean} [options.loop=false] Doit-on boucler en fin de carousel ?
+   *
    */
   constructor(element, options = {}) {
     this.element = element;
@@ -13,6 +22,7 @@ class Carousel {
       {
         slidesToScroll: 1,
         slidesVisible: 1,
+        loop: false,
       },
       options
     );
@@ -22,6 +32,7 @@ class Carousel {
     this.container = this.createDivWithClass("carousel_container");
     this.root.appendChild(this.container);
     this.element.appendChild(this.root);
+    this.moveCallbacks = [];
     this.items = children.map((child) => {
       let item = this.createDivWithClass("carousel_item");
       item.appendChild(child);
@@ -30,6 +41,7 @@ class Carousel {
     });
     this.setStyle();
     this.createNavigation();
+    this.moveCallbacks.forEach((cb) => cb(0));
   }
 
   /**
@@ -48,6 +60,21 @@ class Carousel {
     this.root.appendChild(prevButton);
     nextButton.addEventListener("click", this.next.bind(this));
     prevButton.addEventListener("click", this.prev.bind(this));
+    if (this.options.loop === true) {
+      return;
+    }
+    this.onMove((index) => {
+      if (index === 0) {
+        prevButton.classList.add("carousel_prev-hidden");
+      } else {
+        prevButton.classList.remove("carousel_prev-hidden");
+      }
+      if (this.items[this.currentItem + this.options.slidesVisible] === undefined) {
+        nextButton.classList.add("carousel_next-hidden");
+      } else {
+        nextButton.classList.remove("carousel_next-hidden");
+      }
+    });
   }
 
   next() {
@@ -65,12 +92,24 @@ class Carousel {
   goToItem(index) {
     if (index < 0) {
       index = this.items.length - this.options.slidesVisible;
-    } else if (index >= this.items.length || this.items[this.currentItem + this.options.slidesVisible] === undefined) {
+    } else if (
+      index >= this.items.length ||
+      (this.items[this.currentItem + this.options.slidesVisible] === undefined && index > this.currentItem)
+    ) {
       index = 0;
     }
     let translateX = (index * -100) / this.items.length;
     this.container.style.transform = "translate3d(" + translateX + "%, 0, 0)";
     this.currentItem = index;
+    this.moveCallbacks.forEach((cb) => cb(index));
+  }
+
+  /**
+   * Déplace le container pour afficher le prochain élément
+   * @param {moveCallback} cb
+   */
+  onMove(cb) {
+    this.moveCallbacks.push(cb);
   }
 
   /**
@@ -89,6 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
   new Carousel(document.querySelector("#carousel1"), {
     slidesVisible: 3,
     slidesToScroll: 2,
+    loop: true,
   });
 
   new Carousel(document.querySelector("#carousel2"), {

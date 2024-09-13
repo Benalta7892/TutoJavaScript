@@ -106,8 +106,8 @@ CAROUSEL
   left: -20px;
 }
 
-.carousel__next--hidden,
-.carousel__prev--hidden {
+.carousel_next-hidden,
+.carousel_prev-hidden {
   opacity: 0;
 }
 
