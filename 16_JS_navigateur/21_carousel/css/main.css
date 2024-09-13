@@ -117,7 +117,7 @@ CAROUSEL
   left: 0;
   right: 0;
   text-align: center;
-  display: none;
+  /* display: none; */
 }
 
 .carousel_pagination_button {
@@ -136,9 +136,9 @@ CAROUSEL
 .carousel_pagination_button:hover {
   transform: scale(1.4);
 }
-
+/*
 @media screen and (min-width: 800px) {
   .carousel_pagination {
     display: block;
   }
-}
+} */
