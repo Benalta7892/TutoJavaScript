@@ -1,7 +1,5 @@
-import { readFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 
-const content = await Promise.all([
-  readFile("demo.txt", { encoding: "utf8" }),
-  readFile("app.js", { encoding: "utf8" }),
-]);
-console.log(content);
+await writeFile("demo.txt", "Bonjour les gens", {
+  flag: "a",
+});
