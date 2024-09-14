@@ -13,5 +13,7 @@ export const showPost = (req, res) => {
   if (post === undefined) {
     throw new RecordNotFoundError(`Impossible de trouver l'article avec l'id ${req.params.id}`);
   }
-  return post;
+  return res.view("templates/single.ejs", {
+    post,
+  });
 };
