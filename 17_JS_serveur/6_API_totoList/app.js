@@ -11,6 +11,7 @@ createServer(async (req, res) => {
     let results;
     switch (endpoint) {
       case "GET:/":
+        res.setHeader("Content-Type", "text/html");
         createReadStream("index.html").pipe(res);
         return;
       case "GET:/todos":
