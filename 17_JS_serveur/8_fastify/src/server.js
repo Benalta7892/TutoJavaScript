@@ -26,7 +26,7 @@ app.setErrorHandler((error, req, res) => {
   if (error instanceof RecordNotFoundError) {
     res.statusCode = 404;
     return res.view("templates/404.ejs", {
-      error: error.message,
+      error: "Cette enregistrement n'existe pas",
     });
   }
   console.error(error);
