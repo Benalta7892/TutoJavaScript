@@ -2,12 +2,17 @@ import { db } from "../database.js";
 import { hash, verify } from "@phc/argon2";
 
 export const loginAction = async (req, res) => {
-  return await hash("password");
+  const params = {};
   if (req.method === "POST") {
-    const user = db.prepare("SELECT * FROM users WHERE username = ?").get(req.body.username);
-    return user;
+    const { password, username } = req.body;
+    params.username = username;
+    const user = db.prepare("SELECT * FROM users WHERE username = ?").get(username);
+    if (user !== undefined && (await verify(user.password, password))) {
+      return "Connecté";
+    }
+    params.error = "Identifiants invalides";
   }
-  return res.view("templates/login.ejs");
+  return res.view("templates/login.ejs", params);
 };
 
 export const logoutAction = (req, res) => {
