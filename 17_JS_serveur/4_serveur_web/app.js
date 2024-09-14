@@ -4,7 +4,14 @@ import { createServer } from "node:http";
 
 const server = createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
-  res.write(`Bonjour ${url.searchParams.get("name")}`);
-  res.end();
+  let body = "";
+  req.on("data", (chunk) => {
+    body += chunk;
+  });
+  req.on("close", () => {
+    console.log(body);
+    res.end();
+  });
+  // res.write(`Bonjour ${url.searchParams.get("name")}`);
 });
 server.listen("80");
