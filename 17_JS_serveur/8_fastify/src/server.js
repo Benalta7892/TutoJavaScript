@@ -8,6 +8,7 @@ import { listPosts, showPost } from "./actions/posts.js";
 import { RecordNotFoundError } from "./errors/RecordNotFoundError.js";
 import { createPost } from "./actions/posts.js";
 import fastifyFormbody from "@fastify/formbody";
+import { loginAction, logoutAction } from "./actions/auth.js";
 
 const app = fastify();
 const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -24,6 +25,9 @@ app.register(fastifyStatic, {
 
 app.get("/", listPosts);
 app.post("/", createPost);
+app.get("/login", loginAction);
+app.post("/login", loginAction);
+app.post("/logout", logoutAction);
 app.get("/article/:id", showPost);
 app.setErrorHandler((error, req, res) => {
   if (error instanceof RecordNotFoundError) {
