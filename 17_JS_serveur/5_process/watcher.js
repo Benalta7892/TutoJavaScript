@@ -1,6 +1,16 @@
-import { exec } from "node:child_process";
+import { exec, spawn } from "node:child_process";
 
 const [node, _, file] = process.argv;
-exec("ls", (error, out, err) => {
-  console.log({ error, out, err });
+
+const pr = spawn("ls");
+pr.stdout.on("data", (data) => {
+  console.log(data.toString("utf8"));
+});
+
+pr.stderr.on("data", (data) => {
+  console.error(data.toString("utf8"));
+});
+
+pr.on("close", (code) => {
+  console.log("Process exited: " + code);
 });
