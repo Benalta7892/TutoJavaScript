@@ -1,8 +1,13 @@
 import fastify from "fastify";
 import fastifyView from "@fastify/view";
+import fastifyStatic from "@fastify/static";
 import ejs from "ejs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+import { listPosts, showPost } from "./actions/posts.js";
 
 const app = fastify();
+const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
 
 app.register(fastifyView, {
   engine: {
@@ -10,21 +15,12 @@ app.register(fastifyView, {
   },
 });
 
-app.get("/", (req, res) => {
-  const posts = [
-    {
-      title: "Mon titre",
-      content: "Mon contenu",
-    },
-    {
-      title: "Mon titre 2",
-      content: "Mon contenu 2",
-    },
-  ];
-  res.view("templates/index.ejs", {
-    posts,
-  });
+app.register(fastifyStatic, {
+  root: join(rootDir, "public"),
 });
+
+app.get("/", listPosts);
+app.get("/article/:id", showPost);
 
 const start = async () => {
   try {

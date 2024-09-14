@@ -1,9 +1,14 @@
-<%- include('./shared/header.ejs') %>
+<%- include('./shared/header.ejs', {title: 'Bienvenue sur mon blog'}) %>
 
-<ul>
-  <% for (const post of posts) { %>
-  <li><%= post.title %></li>
-  <% } %>
-</ul>
+<div class="container">
+  <h1 class="my-5">Bienvenue sur mon blog</h1>
+  <div class="row row-cols-2">
+    <% for (const post of posts) { %>
+    <div class="col mb-2">
+      <%- include('./shared/post.ejs', {post}) %>
+    </div>
+    <% } %>
+  </div>
+</div>
 
 <%- include('./shared/footer.ejs') %>
