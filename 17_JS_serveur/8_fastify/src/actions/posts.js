@@ -5,6 +5,7 @@ export const listPosts = (req, res) => {
   const posts = db.prepare("SELECT * FROM posts ORDER BY created_at DESC").all();
   res.view("templates/index.ejs", {
     posts,
+    user: req.session.get("user"),
   });
 };
 
