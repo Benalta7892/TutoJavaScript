@@ -2,7 +2,7 @@ import { db } from "../database.js";
 import { RecordNotFoundError } from "../errors/RecordNotFoundError.js";
 
 export const listPosts = (req, res) => {
-  const posts = db.prepare("SELECT * FROM posts").all();
+  const posts = db.prepare("SELECT * FROM posts ORDER BY created_at DESC").all();
   res.view("templates/index.ejs", {
     posts,
   });
@@ -19,5 +19,10 @@ export const showPost = (req, res) => {
 };
 
 export const createPost = (req, res) => {
-  return req.body;
+  db.prepare("INSERT INTO posts (title, content, created_at) VALUES (?, ?, ?)").run(
+    req.body.title,
+    req.body.content,
+    Math.round(Date.now() / 1000)
+  );
+  res.redirect("/");
 };
