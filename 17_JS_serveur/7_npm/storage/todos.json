@@ -1,10 +1,5 @@
 [
   {
-    "title": "mon nouveau titre",
-    "completed": true,
-    "id": 1726316255416
-  },
-  {
     "id": 1,
     "title": "Ma première tâche",
     "completed": false
