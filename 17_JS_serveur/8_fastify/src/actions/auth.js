@@ -20,5 +20,6 @@ export const loginAction = async (req, res) => {
 };
 
 export const logoutAction = (req, res) => {
-  return "logout";
+  req.session.delete();
+  return res.redirect("/login");
 };

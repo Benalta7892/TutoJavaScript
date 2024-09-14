@@ -11,6 +11,7 @@ import { createPost } from "./actions/posts.js";
 import fastifyFormbody from "@fastify/formbody";
 import { loginAction, logoutAction } from "./actions/auth.js";
 import { readFileSync } from "node:fs";
+import { NotAuthenticatedError } from "./errors/NotAuthenticatedError.js";
 
 const app = fastify();
 const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -44,6 +45,8 @@ app.setErrorHandler((error, req, res) => {
     return res.view("templates/404.ejs", {
       error: "Cette enregistrement n'existe pas",
     });
+  } else if (error instanceof NotAuthenticatedError) {
+    return res.redirect("/login");
   }
   console.error(error);
   res.statusCode = 500;
