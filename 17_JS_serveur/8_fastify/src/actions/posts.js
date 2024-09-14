@@ -17,3 +17,7 @@ export const showPost = (req, res) => {
     post,
   });
 };
+
+export const createPost = (req, res) => {
+  return req.body;
+};

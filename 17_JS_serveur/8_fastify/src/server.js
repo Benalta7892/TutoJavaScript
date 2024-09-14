@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { listPosts, showPost } from "./actions/posts.js";
 import { RecordNotFoundError } from "./errors/RecordNotFoundError.js";
+import { createPost } from "./actions/posts.js";
+import fastifyFormbody from "@fastify/formbody";
 
 const app = fastify();
 const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
@@ -15,12 +17,13 @@ app.register(fastifyView, {
     ejs,
   },
 });
-
+app.register(fastifyFormbody);
 app.register(fastifyStatic, {
   root: join(rootDir, "public"),
 });
 
 app.get("/", listPosts);
+app.post("/", createPost);
 app.get("/article/:id", showPost);
 app.setErrorHandler((error, req, res) => {
   if (error instanceof RecordNotFoundError) {
