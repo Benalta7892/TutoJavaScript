@@ -11,7 +11,9 @@ app.register(fastifyView, {
 });
 
 app.get("/", (req, res) => {
-  res.view("templates/index.ejs");
+  res.view("templates/index.ejs", {
+    title: "Hello, World!",
+  });
 });
 
 const start = async () => {
