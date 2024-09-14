@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { index, create, remove, update } from "./functions/api/todos.js";
 import { NotFoundError } from "./functions/errors.js";
+import { createReadStream } from "node:fs";
 
 createServer(async (req, res) => {
   try {
@@ -9,6 +10,9 @@ createServer(async (req, res) => {
     const endpoint = `${req.method}:${url.pathname}`;
     let results;
     switch (endpoint) {
+      case "GET:/":
+        createReadStream("index.html").pipe(res);
+        return;
       case "GET:/todos":
         results = await index(req, res);
         break;
