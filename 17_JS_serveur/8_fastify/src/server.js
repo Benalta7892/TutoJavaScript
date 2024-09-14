@@ -11,8 +11,18 @@ app.register(fastifyView, {
 });
 
 app.get("/", (req, res) => {
+  const posts = [
+    {
+      title: "Mon titre",
+      content: "Mon contenu",
+    },
+    {
+      title: "Mon titre 2",
+      content: "Mon contenu 2",
+    },
+  ];
   res.view("templates/index.ejs", {
-    title: "Hello, World!",
+    posts,
   });
 });
 
