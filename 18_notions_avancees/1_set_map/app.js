@@ -16,10 +16,15 @@ class UniqueSet {
     }
   }
 
+  delete(key) {
+    this.#map.delete(key);
+  }
+
   values() {
     return this.#map.values();
   }
 }
 
 const p = new UniqueSet((p) => p.id, persons);
+p.delete(2);
 console.log(Array.from(p.values()));
