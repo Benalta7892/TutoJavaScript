@@ -1,3 +1,3 @@
-const expr = /([a-z]{3,})/;
+const expr = /([a-z]{3,})/g;
 
-console.log(expr.exec("bonjour les gens")); // ["bonjour", "bonjour"]
+console.log("bonjour les gens".match(expr)); // ["bonjour", "bonjour"]
