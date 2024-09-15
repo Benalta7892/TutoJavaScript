@@ -22,17 +22,28 @@ const Jhon = {
 };
 
 function updateUser(person) {
-  person.age = 3;
+  person.age = 29;
 }
 
-const johnMajeur = new Proxy(Jhon, {
+const majeurProxyHandler = {
   set(target, prop, value, receiver) {
     if (prop === "age" && value < 18) {
       throw new Error("La personne ne peut pas devenir mineur");
     }
     return Reflect.set(...arguments);
   },
-});
+};
+
+const aliveProxyHandler = {
+  set(target, prop, value, receiver) {
+    if (prop === "age" && value > 150) {
+      throw new Error("La personne est trop vieille");
+    }
+    return Reflect.set(...arguments);
+  },
+};
+
+const johnMajeur = new Proxy(new Proxy(Jhon, majeurProxyHandler), aliveProxyHandler);
 
 // Mon code
 updateUser(johnMajeur);
