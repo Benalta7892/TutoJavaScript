@@ -51,21 +51,53 @@
 // console.log(johnMajeur);
 
 // Autre exemple
-const distribution = objWithDefault({}, []);
+// const distribution = objWithDefault({}, []);
 
-function objWithDefault(obj, initial) {
-  return new Proxy(obj, {
-    get(target, prop) {
-      if (!(prop in target)) {
-        Reflect.set(target, prop, structuredClone(initial));
+// function objWithDefault(obj, initial) {
+//   return new Proxy(obj, {
+//     get(target, prop) {
+//       if (!(prop in target)) {
+//         Reflect.set(target, prop, structuredClone(initial));
+//       }
+//       return Reflect.get(...arguments);
+//     },
+//   });
+// }
+
+// distribution["John"].push("a");
+// distribution["John"].push("b");
+// distribution["Jane"].push("c");
+
+// console.log(distribution);
+
+// Autre exemple
+
+const input = document.querySelector("input");
+
+const state = new Proxy(
+  {
+    count: 0,
+  },
+  {
+    set(target, prop, value) {
+      if (prop === "count") {
+        input.value = value;
       }
-      return Reflect.get(...arguments);
+      return Reflect.set(...arguments);
     },
-  });
-}
+  }
+);
 
-distribution["John"].push("a");
-distribution["John"].push("b");
-distribution["Jane"].push("c");
+document.getElementById("increment").addEventListener("click", () => {
+  state.count++;
+});
+document.getElementById("decrement").addEventListener("click", () => {
+  state.count--;
+});
+document.getElementById("reset").addEventListener("click", () => {
+  state.count = 0;
+});
 
-console.log(distribution);
+input.value = "0";
+
+window.state = state;
