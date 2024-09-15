@@ -1,1 +1,3 @@
-const expr = new RegExp("/^[a-z]+$/", "gi");
+const expr = /^[a-z]+$/;
+
+console.log(expr.test("fefheihf"));
