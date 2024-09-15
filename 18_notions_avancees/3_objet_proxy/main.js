@@ -118,6 +118,18 @@ const a = {
   },
 };
 
-const b = new Proxy(a, {});
+const b = new Proxy(a, {
+  get(target, prop) {
+    if (typeof target[prop] === "function") {
+      return Reflect.get(...arguments).bind(target);
+    }
+    return Reflect.get(...arguments);
+  },
+});
 
 b.hello(); // Proxy { hello: [Function: hello] }
+
+// Ca peut causé des problèmes dans certains cas car on ne peut pas savoir si on
+// a affaire à un proxy ou à un objet normal mais dans ce cas précis,
+// on a bindé la fonction hello à l'objet target donc on a bien le bon this qui fait
+// référence à l'objet target (a) et non au proxy (b)
