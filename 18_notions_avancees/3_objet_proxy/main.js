@@ -51,22 +51,21 @@
 // console.log(johnMajeur);
 
 // Autre exemple
-const distribution = objWithDefault({}, 0);
+const distribution = objWithDefault({}, []);
 
 function objWithDefault(obj, initial) {
   return new Proxy(obj, {
     get(target, prop) {
       if (!(prop in target)) {
-        Reflect.set(target, prop, initial);
+        Reflect.set(target, prop, structuredClone(initial));
       }
       return Reflect.get(...arguments);
     },
   });
 }
 
-distribution["John"]++;
-distribution["John"]++;
-distribution["John"]++;
-distribution["Jane"]++;
+distribution["John"].push("a");
+distribution["John"].push("b");
+distribution["Jane"].push("c");
 
-console.log(distribution); // 1
+console.log(distribution);
