@@ -1,19 +1,25 @@
 const persons = [
-  { name: "John Doe", age: 18 },
-  { name: "Jane Doe", age: 28 },
-  { name: "Henry Doe", age: 32 },
+  { name: "John Doe", age: 18, id: 1 },
+  { name: "Jane Doe", age: 28, id: 2 },
+  { name: "Henry Doe", age: 32, id: 2 },
 ];
 
-const ul = document.createElement("ul");
+class UniqueSet {
+  #map = new Map();
 
-const liMap = new Map();
+  constructor(cb, items) {
+    for (const item of items) {
+      const key = cb(item);
+      if (!this.#map.has(key)) {
+        this.#map.set(key, item);
+      }
+    }
+  }
 
-persons.forEach((person) => {
-  const li = document.createElement("li");
-  li.innerHTML = `<strong>${person.name}</strong>: ${person.age}`;
-  ul.appendChild(li);
-  liMap.set(person, li);
-});
+  values() {
+    return this.#map.values();
+  }
+}
 
-// Je veux le li correspondant à la personne
-console.log(liMap.get(persons[1])); // <li><strong>Jane Doe</strong>: 28</li>
+const p = new UniqueSet((p) => p.id, persons);
+console.log(Array.from(p.values()));
