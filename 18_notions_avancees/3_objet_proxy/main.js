@@ -72,32 +72,41 @@
 
 // Autre exemple
 
-const input = document.querySelector("input");
+// const input = document.querySelector("input");
 
-const state = new Proxy(
-  {
-    count: 0,
-  },
-  {
-    set(target, prop, value) {
-      if (prop === "count") {
-        input.value = value;
-      }
-      return Reflect.set(...arguments);
-    },
-  }
-);
+// const state = new Proxy(
+//   {
+//     count: 0,
+//   },
+//   {
+//     set(target, prop, value) {
+//       if (prop === "count") {
+//         input.value = value;
+//       }
+//       return Reflect.set(...arguments);
+//     },
+//   }
+// );
 
-document.getElementById("increment").addEventListener("click", () => {
-  state.count++;
+// document.getElementById("increment").addEventListener("click", () => {
+//   state.count++;
+// });
+// document.getElementById("decrement").addEventListener("click", () => {
+//   state.count--;
+// });
+// document.getElementById("reset").addEventListener("click", () => {
+//   state.count = 0;
+// });
+
+// input.value = "0";
+
+// window.state = state;
+
+// Autre exemple
+class Person {}
+
+const p = new Proxy(new Person(), {
+  get() {},
 });
-document.getElementById("decrement").addEventListener("click", () => {
-  state.count--;
-});
-document.getElementById("reset").addEventListener("click", () => {
-  state.count = 0;
-});
 
-input.value = "0";
-
-window.state = state;
+console.log(p instanceof Person); // true
