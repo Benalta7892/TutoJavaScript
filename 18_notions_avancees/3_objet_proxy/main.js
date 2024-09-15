@@ -16,35 +16,57 @@
 // p.b = 2;
 // console.log(a);
 
-const Jhon = {
-  name: "Jhon Doe",
-  age: 20,
-};
+// Autre exemple
+// const Jhon = {
+//   name: "Jhon Doe",
+//   age: 20,
+// };
 
-function updateUser(person) {
-  person.age = 29;
+// function updateUser(person) {
+//   person.age = 29;
+// }
+
+// const majeurProxyHandler = {
+//   set(target, prop, value, receiver) {
+//     if (prop === "age" && value < 18) {
+//       throw new Error("La personne ne peut pas devenir mineur");
+//     }
+//     return Reflect.set(...arguments);
+//   },
+// };
+
+// const aliveProxyHandler = {
+//   set(target, prop, value, receiver) {
+//     if (prop === "age" && value > 150) {
+//       throw new Error("La personne est trop vieille");
+//     }
+//     return Reflect.set(...arguments);
+//   },
+// };
+
+// const johnMajeur = new Proxy(new Proxy(Jhon, majeurProxyHandler), aliveProxyHandler);
+
+// // Mon code
+// updateUser(johnMajeur);
+// console.log(johnMajeur);
+
+// Autre exemple
+const distribution = objWithDefault({}, 0);
+
+function objWithDefault(obj, initial) {
+  return new Proxy(obj, {
+    get(target, prop) {
+      if (!(prop in target)) {
+        Reflect.set(target, prop, initial);
+      }
+      return Reflect.get(...arguments);
+    },
+  });
 }
 
-const majeurProxyHandler = {
-  set(target, prop, value, receiver) {
-    if (prop === "age" && value < 18) {
-      throw new Error("La personne ne peut pas devenir mineur");
-    }
-    return Reflect.set(...arguments);
-  },
-};
+distribution["John"]++;
+distribution["John"]++;
+distribution["John"]++;
+distribution["Jane"]++;
 
-const aliveProxyHandler = {
-  set(target, prop, value, receiver) {
-    if (prop === "age" && value > 150) {
-      throw new Error("La personne est trop vieille");
-    }
-    return Reflect.set(...arguments);
-  },
-};
-
-const johnMajeur = new Proxy(new Proxy(Jhon, majeurProxyHandler), aliveProxyHandler);
-
-// Mon code
-updateUser(johnMajeur);
-console.log(johnMajeur);
+console.log(distribution); // 1
