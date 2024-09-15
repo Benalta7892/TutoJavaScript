@@ -13,4 +13,4 @@ const description = `
 10:00 Conclusion
 `;
 
-console.log(description.match(expr)); // ["bonjour", "bonjour"]
+console.log(Array.from(description.matchAll(expr))); // ["bonjour", "bonjour"]
