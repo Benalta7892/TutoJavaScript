@@ -1,4 +1,4 @@
-const expr = /(\d{2}):(\d{2})/g;
+const expr = /^(\d{2}):(\d{2}) (.*)$/gm;
 const description = `
 00:00 Introduction
 01:00 Les symboles
@@ -13,4 +13,7 @@ const description = `
 10:00 Conclusion
 `;
 
-console.log(Array.from(description.matchAll(expr))); // ["bonjour", "bonjour"]
+for (const match of description.matchAll(expr)) {
+  const [_, min, seconds, title] = match;
+  console.table({ min, seconds, title });
+}
