@@ -103,10 +103,21 @@
 // window.state = state;
 
 // Autre exemple
-class Person {}
+// class Person {}
 
-const p = new Proxy(new Person(), {
-  get() {},
-});
+// const p = new Proxy(new Person(), {
+//   get() {},
+// });
 
-console.log(p instanceof Person); // true
+// console.log(p instanceof Person); // true
+
+// Autre exemple
+const a = {
+  hello() {
+    console.log(this);
+  },
+};
+
+const b = new Proxy(a, {});
+
+b.hello(); // Proxy { hello: [Function: hello] }
